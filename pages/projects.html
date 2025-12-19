@@ -17,27 +17,35 @@
   <style>
     :root { --brand:#0a3d62; --bg:#f6f8fa; --card:#ffffff; --text:#2b2b2b; }
     * { box-sizing:border-box; }
-    body { margin:0; font-family: "Segoe UI", Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); }
+    body { margin:0; font-family: "Segoe UI", Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; font-size: clamp(15px, 1.8vw, 17px); }
     a { color: var(--brand); text-decoration: none; }
     header { background:var(--card); border-bottom:1px solid #e8eef3; }
-    .nav { max-width:1000px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 18px; }
-    .btn { background: var(--brand); color:#fff; padding:8px 12px; border-radius:6px; border:1px solid #08324c; display:inline-block; }
+    .nav { max-width:1000px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 18px; flex-wrap:wrap; gap:8px; }
+    .nav nav { display:flex; flex-wrap:wrap; gap:8px; }
+    .btn { background: var(--brand); color:#fff; padding:10px 14px; border-radius:6px; border:1px solid #08324c; display:inline-block; min-height:44px; }
     main { max-width:1000px; margin:28px auto; padding:0 18px; display:grid; gap:20px; }
     .card { background:var(--card); border:1px solid #e8eef3; border-radius:10px; padding:18px; }
-    h1 { margin:0 0 12px 0; font-size:28px; color:var(--brand); }
-    h2 { margin:0 0 8px 0; font-size:22px; color:var(--brand); }
-    h3 { margin:0 0 6px 0; font-size:18px; }
+    h1 { margin:0 0 12px 0; font-size: clamp(22px, 4.2vw, 28px); color:var(--brand); }
+    h2 { margin:0 0 8px 0; font-size: clamp(18px, 3.4vw, 22px); color:var(--brand); }
+    h3 { margin:0 0 6px 0; font-size: clamp(15px, 3vw, 18px); }
     .tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
     .tag { background:#eef3f7; border:1px solid #dde7f0; color:#234; padding:3px 8px; border-radius:999px; font-size:12px; }
     ul { margin:8px 0 0; padding-left:18px; }
     .footer { max-width:1000px; margin:30px auto; text-align:center; font-size:12px; color:#666; padding:10px 18px; }
+    @media (max-width: 600px) {
+      .nav { justify-content: center; }
+      .nav > div { width: 100%; text-align: center; }
+      .nav nav { width: 100%; justify-content: center; }
+    }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header>
     <div class="nav">
       <div><strong>Mukul Joshi</strong> · DevOps Engineer</div>
-      <nav>
+      <button class="menu-toggle" aria-controls="primary-nav" aria-expanded="false">Menu</button>
+      <nav id="primary-nav">
         <a href="../index.html">Home</a>
         &nbsp;&nbsp;
         <a href="projects.html" aria-current="page">Projects</a>
@@ -62,7 +70,7 @@
   }
   </script>
 
-  <main>
+  <main id="main">
     <section class="card">
       <h1>Projects</h1>
       <p>Selected projects with scope, stack, and outcomes. More coming soon.</p>
@@ -105,6 +113,19 @@
     </section>
   </main>
 
+  <script>
+    // Mobile nav toggle
+    (function(){
+      const btn = document.querySelector('.menu-toggle');
+      const nav = document.getElementById('primary-nav');
+      if(!btn || !nav) return;
+      btn.addEventListener('click', function(){
+        const open = nav.getAttribute('data-open') === 'true';
+        nav.setAttribute('data-open', open ? 'false' : 'true');
+        btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+    })();
+  </script>
   <script>
     // Reuse theme toggle logic
     (function(){

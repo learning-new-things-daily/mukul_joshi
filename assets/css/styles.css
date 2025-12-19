@@ -22,7 +22,7 @@
 
 /* Consistent focus styles */
 a:focus-visible, .btn:focus-visible {
-  outline: 3px solid #0a9cf0;
+  outline: 3px solid var(--focus);
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -31,6 +31,7 @@ a:focus-visible, .btn:focus-visible {
 :root {
   --brand-dark: #08324c;
   --accent: #0e6ba8;
+  --focus: #0a9cf0;
 }
 
 /* Dark theme variables (override inline :root variables via specificity) */
@@ -40,6 +41,9 @@ a:focus-visible, .btn:focus-visible {
   --text: #e2e8f0;
   --brand: #58a6ff;
 }
+
+/* Improve accent contrast in dark mode */
+:root[data-theme='dark'] { --accent: #7cc4ff; }
 
 .gradient-text {
   background: linear-gradient(90deg, #0a3d62 0%, #0e6ba8 50%, #084a73 100%);
@@ -113,3 +117,45 @@ h2::after {
 
 /* Emoji / icon marker before titles */
 .marker { font-size: 18px; margin-right: 8px; }
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 12px;
+  background: #fff;
+  color: #000;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e0e6ec;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  transition: top .2s ease;
+  z-index: 1000;
+}
+.skip-link:focus { top: 12px; }
+
+/* Mobile nav (hamburger) toggle */
+.menu-toggle { display: none; }
+@media (max-width: 600px) {
+  .menu-toggle {
+    display: inline-block;
+    background: var(--brand);
+    color: #fff;
+    border: 1px solid var(--brand-dark);
+    border-radius: 6px;
+    padding: 10px 14px;
+    min-height: 44px;
+  }
+  .nav nav { display: none; }
+  .nav nav[data-open="true"] { display: flex; }
+}
+
+/* Dark mode component contrast */
+:root[data-theme='dark'] .tag {
+  background: #22314f;
+  border-color: #3a4f73;
+  color: #e2e8f0;
+}
+:root[data-theme='dark'] .btn {
+  border-color: #9ecaff;
+}

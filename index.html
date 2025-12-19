@@ -34,18 +34,19 @@
   <style>
     :root { --brand:#0a3d62; --bg:#f6f8fa; --card:#ffffff; --text:#2b2b2b; }
     * { box-sizing:border-box; }
-    body { margin:0; font-family: "Segoe UI", Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); }
+    body { margin:0; font-family: "Segoe UI", Roboto, Arial, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; font-size: clamp(15px, 1.8vw, 17px); }
     a { color: var(--brand); text-decoration: none; }
     header { background:var(--card); border-bottom:1px solid #e8eef3; position:sticky; top:0; z-index:10; }
-    .nav { max-width:1000px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 18px; }
-    .nav a.btn { background: var(--brand); color:#fff; padding:8px 12px; border-radius:6px; border:1px solid #08324c; }
-    .btn { background: var(--brand); color:#fff; padding:8px 12px; border-radius:6px; border:1px solid #08324c; display:inline-block; }
+    .nav { max-width:1000px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:14px 18px; flex-wrap:wrap; gap:8px; }
+    .nav nav { display:flex; flex-wrap:wrap; gap:8px; }
+    .nav a.btn { background: var(--brand); color:#fff; padding:10px 14px; border-radius:6px; border:1px solid #08324c; }
+    .btn { background: var(--brand); color:#fff; padding:10px 14px; border-radius:6px; border:1px solid #08324c; display:inline-block; min-height:44px; }
     .hero { max-width:1000px; margin:28px auto; padding:0 18px; display:grid; grid-template-columns:1.2fr 1fr; gap:24px; }
     .card { background:var(--card); border:1px solid #e8eef3; border-radius:10px; padding:18px; transition: box-shadow .2s ease, transform .2s ease; }
     .card:hover { box-shadow: 0 8px 24px rgba(10,61,98,0.08); transform: translateY(-2px); }
-    h1 { margin:0 0 8px 0; font-size:32px; color:var(--brand); }
-    h2 { margin:0 0 12px 0; font-size:20px; color:var(--brand); }
-    h3 { margin:0 0 6px 0; font-size:16px; }
+    h1 { margin:0 0 8px 0; font-size: clamp(24px, 4.5vw, 32px); color:var(--brand); }
+    h2 { margin:0 0 12px 0; font-size: clamp(18px, 3.5vw, 22px); color:var(--brand); }
+    h3 { margin:0 0 6px 0; font-size: clamp(15px, 3vw, 18px); }
     .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:16px; }
     .list { display:grid; gap:10px; }
     .tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
@@ -53,6 +54,11 @@
     .footer { max-width:1000px; margin:30px auto; text-align:center; font-size:12px; color:#666; padding:10px 18px; }
     a:focus-visible, .btn:focus-visible { outline:3px solid #0a9cf0; outline-offset:2px; border-radius:6px; }
     @media (max-width: 800px) { .hero { grid-template-columns:1fr; } }
+    @media (max-width: 600px) {
+      .nav { justify-content: center; }
+      .nav > div { width: 100%; text-align: center; }
+      .nav nav { width: 100%; justify-content: center; }
+    }
   </style>
   <script type="application/ld+json">
   {
@@ -65,10 +71,12 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header>
     <div class="nav">
       <div><strong>Mukul Joshi</strong> · DevOps Engineer</div>
-      <nav>
+      <button class="menu-toggle" aria-controls="primary-nav" aria-expanded="false">Menu</button>
+      <nav id="primary-nav">
         <a href="index.html" aria-current="page">Home</a>
         &nbsp;&nbsp;
         <a href="pages/projects.html">Projects</a>
@@ -83,7 +91,7 @@
       </nav>
     </div>
   </header>
-
+  <main id="main">
   <section class="hero hero--banner">
     <div class="card">
       <h1 class="gradient-text">Hello, I'm Mukul</h1>
@@ -124,13 +132,26 @@
       </noscript>
     </div>
   </section>
-
+  </main>
   <footer class="footer">© Mukul Joshi · DevOps Engineer</footer>
   <script src="assets/js/app.js" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js').catch(()=>{});
     }
+  </script>
+  <script>
+    // Mobile nav toggle
+    (function(){
+      const btn = document.querySelector('.menu-toggle');
+      const nav = document.getElementById('primary-nav');
+      if(!btn || !nav) return;
+      btn.addEventListener('click', function(){
+        const open = nav.getAttribute('data-open') === 'true';
+        nav.setAttribute('data-open', open ? 'false' : 'true');
+        btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+    })();
   </script>
   <script>
     // Theme toggle with persistence

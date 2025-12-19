@@ -15,7 +15,7 @@
   <link rel="manifest" href="../manifest.json"/>
   <link rel="stylesheet" href="../assets/css/styles.css"/>
   <style>
-    body { font-family: "Segoe UI", Roboto, Arial, sans-serif; background:#fff; color:#000; margin:0; padding:0; }
+    body { font-family: "Segoe UI", Roboto, Arial, sans-serif; background:#fff; color:#000; margin:0; padding:0; line-height:1.6; font-size: clamp(15px, 1.8vw, 17px); }
     .container { max-width:900px; margin:30px auto; background:#fff; padding:24px; }
     h1 { margin: 0; font-size: 32px; color: #000; }
     h2 { border-bottom:1px solid #000; padding-bottom:5px; margin-top:28px; font-size:20px; color:#000; }
@@ -26,13 +26,17 @@
     .header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; }
     .contact { text-align:right; font-size:14px; }
     .contact a { color:#000; text-decoration:none; }
-    .btn { background:#000; color:#fff; border:1px solid #000; padding:6px 10px; border-radius:4px; cursor:pointer; font-size:13px; }
+    .btn { background:#000; color:#fff; border:1px solid #000; padding:10px 14px; border-radius:6px; cursor:pointer; font-size:14px; min-height:44px; }
     .meta { font-size:13px; color:#222; }
     .grid { display:grid; grid-template-columns:1fr; gap:12px; }
     .chips { display:flex; flex-wrap:wrap; gap:8px; }
     .chip { padding:0; border:none; border-radius:0; font-size:13px; color:inherit; }
     .emoji { display:none; }
     @media print { .no-print{display:none!important;} .container{margin:0;padding:20px;} }
+    @media (max-width: 600px) {
+      .header { gap: 10px; }
+      .contact { text-align: left; }
+    }
   </style>
   <script type="application/ld+json">
   {
@@ -50,6 +54,8 @@
   </script>
 </head>
 <body class="ats">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main">
   <div class="container">
     <div class="header">
       <div>
@@ -146,5 +152,6 @@
 
     <footer style="margin-top:24px; font-size:12px; color:#444;">© Mukul Joshi | DevOps Engineer</footer>
   </div>
+  </main>
 </body>
 </html>
