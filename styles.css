@@ -33,6 +33,14 @@ a:focus-visible, .btn:focus-visible {
   --accent: #0e6ba8;
 }
 
+/* Dark theme variables (override inline :root variables via specificity) */
+:root[data-theme='dark'] {
+  --bg: #0b1220;
+  --card: #0f172a;
+  --text: #e2e8f0;
+  --brand: #58a6ff;
+}
+
 .gradient-text {
   background: linear-gradient(90deg, #0a3d62 0%, #0e6ba8 50%, #084a73 100%);
   -webkit-background-clip: text;
@@ -99,3 +107,9 @@ h2::after {
   background: linear-gradient(90deg, #0a3d62, #0e6ba8);
   border-radius: 2px;
 }
+
+/* Subtitle accent under hero title */
+.subtitle { color: var(--accent); margin: 6px 0 14px; font-weight: 600; }
+
+/* Emoji / icon marker before titles */
+.marker { font-size: 18px; margin-right: 8px; }

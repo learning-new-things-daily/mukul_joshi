@@ -45,6 +45,8 @@
         <a href="resume.html" class="btn">Resume (ATS)</a>
         &nbsp;
         <a href="resume-preview.html" class="btn" style="background:#084a73">Resume Preview</a>
+        &nbsp;&nbsp;
+        <button id="theme-toggle" class="btn" aria-pressed="false" title="Toggle dark mode">Dark Mode</button>
       </nav>
     </div>
   </header>
@@ -67,7 +69,7 @@
     </section>
 
     <section class="card card--glow" id="nxtpe">
-      <h2>AWS Infrastructure Automation (Nxtpe)</h2>
+      <h2><span class="marker">🔧</span>AWS Infrastructure Automation (Nxtpe)</h2>
       <div class="tags"><span class="tag">AWS</span><span class="tag">Terraform</span><span class="tag">Jenkins</span></div>
       <p><strong>Scope:</strong> Built reusable Terraform modules for VPC, EC2, RDS, and IAM; integrated with Jenkins CI/CD.</p>
       <ul>
@@ -79,7 +81,7 @@
     </section>
 
     <section class="card card--glow" id="sharechat">
-      <h2>Google Cloud Monitoring (ShareChat)</h2>
+      <h2><span class="marker">📊</span>Google Cloud Monitoring (ShareChat)</h2>
       <div class="tags"><span class="tag">GCP</span><span class="tag">Monitoring</span><span class="tag">Dashboards</span></div>
       <p><strong>Scope:</strong> Configured Cloud Monitoring metrics, dashboards, and operational documentation.</p>
       <ul>
@@ -91,7 +93,7 @@
     </section>
 
     <section class="card card--glow" id="iftas-rebit">
-      <h2>OpenShift CI/CD Automation (IFTAS / REBIT)</h2>
+      <h2><span class="marker">🛡️</span>OpenShift CI/CD Automation (IFTAS / REBIT)</h2>
       <div class="tags"><span class="tag">OpenShift</span><span class="tag">CI/CD</span><span class="tag">Security</span></div>
       <p><strong>Scope:</strong> Implemented CI/CD automation, security scans, and Quay registry management.</p>
       <ul>
@@ -102,6 +104,29 @@
       <p><strong>Links:</strong> <a href="#iftas-rebit">Case study</a></p>
     </section>
   </main>
+
+  <script>
+    // Reuse theme toggle logic
+    (function(){
+      const key = 'theme';
+      const btn = document.getElementById('theme-toggle');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const saved = localStorage.getItem(key);
+      const initial = saved ? saved : (prefersDark ? 'dark' : 'light');
+      setTheme(initial);
+      if(btn){
+        btn.addEventListener('click', ()=>{
+          const next = (document.documentElement.getAttribute('data-theme')==='dark')?'light':'dark';
+          setTheme(next);
+        });
+      }
+      function setTheme(t){
+        document.documentElement.setAttribute('data-theme', t);
+        localStorage.setItem(key, t);
+        if(btn){ btn.setAttribute('aria-pressed', t==='dark'?'true':'false'); btn.textContent = t==='dark'?'Light Mode':'Dark Mode'; }
+      }
+    })();
+  </script>
 
   <footer class="footer">© Mukul Joshi · DevOps Engineer</footer>
 </body>

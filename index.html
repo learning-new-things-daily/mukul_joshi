@@ -78,6 +78,8 @@
         <a class="btn" href="resume.html">Resume (ATS)</a>
         &nbsp;
         <a class="btn" href="resume-preview.html" style="background:#084a73">Resume Preview</a>
+        &nbsp;&nbsp;
+        <button id="theme-toggle" class="btn" aria-pressed="false" title="Toggle dark mode">Dark Mode</button>
       </nav>
     </div>
   </header>
@@ -85,6 +87,7 @@
   <section class="hero hero--banner">
     <div class="card">
       <h1 class="gradient-text">Hello, I'm Mukul</h1>
+      <p class="subtitle">Cloud automation, Kubernetes, and CI/CD at scale.</p>
       <p>DevOps Engineer with 5.6 years in IT (2+ in DevOps), experienced across AWS, GCP, Terraform, Jenkins, Docker, Kubernetes, and CI/CD automation. I focus on scalable, reliable infrastructure and developer productivity.</p>
       <p>
         <a class="btn btn--shine" href="projects.html">View Projects</a>
@@ -106,7 +109,7 @@
     <h2>Projects</h2>
     <div class="grid">
       <div class="card">
-        <h3>AWS Infrastructure Automation (Nxtpe)</h3>
+        <h3><span class="marker">🔧</span>AWS Infrastructure Automation (Nxtpe)</h3>
         <p>Reusable Terraform modules for VPC, EC2, RDS, and IAM with Jenkins CI/CD integration.</p>
         <ul>
           <li>Standardized modules reduced manual provisioning and improved repeatability.</li>
@@ -118,7 +121,7 @@
         </p>
       </div>
       <div class="card">
-        <h3>Google Cloud Monitoring (ShareChat)</h3>
+        <h3><span class="marker">📊</span>Google Cloud Monitoring (ShareChat)</h3>
         <p>Configured GCP monitoring metrics, dashboards, and operational documentation.</p>
         <ul>
           <li>Actionable SLO dashboards improved visibility for on‑call workflows.</li>
@@ -130,7 +133,7 @@
         </p>
       </div>
       <div class="card">
-        <h3>OpenShift CI/CD Automation (IFTAS / REBIT)</h3>
+        <h3><span class="marker">🛡️</span>OpenShift CI/CD Automation (IFTAS / REBIT)</h3>
         <p>CI/CD automation, security scans, and Quay registry management for OpenShift.</p>
         <ul>
           <li>Security scans integrated as gates to enforce compliance.</li>
@@ -181,6 +184,28 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js').catch(()=>{});
     }
+  </script>
+  <script>
+    // Theme toggle with persistence
+    (function(){
+      const key = 'theme';
+      const btn = document.getElementById('theme-toggle');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const saved = localStorage.getItem(key);
+      const initial = saved ? saved : (prefersDark ? 'dark' : 'light');
+      setTheme(initial);
+      if(btn){
+        btn.addEventListener('click', ()=>{
+          const next = (document.documentElement.getAttribute('data-theme')==='dark')?'light':'dark';
+          setTheme(next);
+        });
+      }
+      function setTheme(t){
+        document.documentElement.setAttribute('data-theme', t);
+        localStorage.setItem(key, t);
+        if(btn){ btn.setAttribute('aria-pressed', t==='dark'?'true':'false'); btn.textContent = t==='dark'?'Light Mode':'Dark Mode'; }
+      }
+    })();
   </script>
 </body>
 </html>
