@@ -5,17 +5,22 @@ const ASSETS = [
   './projects.html',
   './resume.html',
   './resume-preview.html',
-  './styles.css',
-  './scripts/app.js',
-  './favicon-16.png',
-  './favicon-32.png',
-  './favicon-48.png',
-  './favicon-64.png',
-  './apple-touch-icon.png',
-  './icon-192.png',
-  './icon-512.png'
+  './assets/css/styles.css',
+  './assets/js/app.js',
+  './assets/icons/favicon-16.png',
+  './assets/icons/favicon-32.png',
+  './assets/icons/favicon-48.png',
+  './assets/icons/favicon-64.png',
+  './assets/icons/apple-touch-icon.png',
+  './assets/icons/icon-192.png',
+  './assets/icons/icon-512.png',
   './data/projects.json',
-  './data/posts.json'
+  './data/posts.json',
+  './pages/projects.html',
+  './pages/resume.html',
+  './pages/resume-preview.html',
+  './pages/post-terraform-modules.html',
+  './pages/post-jenkins-k8s-ci.html'
 ];
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)));

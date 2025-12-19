@@ -1,5 +1,16 @@
 # Mukul Joshi Portfolio — Data-driven setup
 
+## Folder structure
+- `index.html` — root homepage
+- `pages/` — all other pages (projects, resumes, posts)
+- `assets/`
+  - `css/` — shared styles
+  - `js/` — renderer scripts
+  - `icons/` — favicons and app icons
+  - `images/` — social cover and future images
+- `data/` — JSON content sources
+- `manifest.json`, `sw.js`, `robots.txt`, `sitemap.xml` — remain at root for correct scope and crawler discovery
+
 ## How to add or edit Projects
 - Edit `data/projects.json` and add an object:
   - `id`: unique anchor id
@@ -26,3 +37,4 @@
 ## Publishing notes
 - If your base path changes on GitHub Pages, update `manifest.json` (`start_url`, `scope`).
 - After pushing, validate social cards and test dark mode persistence.
+ - Keep `robots.txt` and `sitemap.xml` at the site root to avoid crawler issues.
