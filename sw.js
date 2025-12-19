@@ -1,10 +1,7 @@
-const CACHE_NAME = 'mukul-site-v1';
+const CACHE_NAME = 'mukul-site-v2';
 const ASSETS = [
   './',
   './index.html',
-  './projects.html',
-  './resume.html',
-  './resume-preview.html',
   './assets/css/styles.css',
   './assets/js/app.js',
   './assets/icons/favicon-16.png',
