@@ -6,9 +6,15 @@
   "display": "standalone",
   "background_color": "#0a3d62",
   "theme_color": "#0a3d62",
+  "description": "Portfolio of Mukul Joshi — DevOps projects, blog, and resume.",
   "icons": [
-    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
     { "src": "assets/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Open Projects", "url": "/devops-hub/pages/projects.html" },
+    { "name": "Open Resume (ATS)", "url": "/devops-hub/pages/resume.html" },
+    { "name": "Open Resume Preview", "url": "/devops-hub/pages/resume-preview.html" }
   ]
 }

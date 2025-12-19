@@ -13,7 +13,8 @@
   <link rel="icon" type="image/png" sizes="48x48" href="../assets/icons/favicon-48.png"/>
   <link rel="icon" type="image/png" sizes="64x64" href="../assets/icons/favicon-64.png"/>
   <link rel="manifest" href="../manifest.json"/>
-  <link rel="stylesheet" href="../assets/css/styles.css"/>
+  <link rel="stylesheet" href="../assets/css/styles.css" media="print" onload="this.media='all'"/>
+  <noscript><link rel="stylesheet" href="../assets/css/styles.css"/></noscript>
   <style>
     :root { --brand:#0a3d62; --bg:#f6f8fa; --card:#ffffff; --text:#2b2b2b; }
     * { box-sizing:border-box; }
@@ -44,7 +45,7 @@
   <header>
     <div class="nav">
       <div><strong>Mukul Joshi</strong> · DevOps Engineer</div>
-      <button class="menu-toggle" aria-controls="primary-nav" aria-expanded="false">Menu</button>
+      <button class="menu-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">Menu</button>
       <nav id="primary-nav">
         <a href="../index.html">Home</a>
         &nbsp;&nbsp;
@@ -123,6 +124,13 @@
         const open = nav.getAttribute('data-open') === 'true';
         nav.setAttribute('data-open', open ? 'false' : 'true');
         btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape'){
+          nav.setAttribute('data-open','false');
+          btn.setAttribute('aria-expanded','false');
+          btn.focus();
+        }
       });
     })();
   </script>

@@ -118,6 +118,14 @@ h2::after {
 /* Emoji / icon marker before titles */
 .marker { font-size: 18px; margin-right: 8px; }
 
+/* Modal styles */
+.modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.55); display: none; align-items: center; justify-content: center; z-index: 1000; }
+.modal-overlay[data-open="true"] { display: flex; }
+.modal { background: var(--card); color: var(--text); border: 1px solid #e8eef3; border-radius: 10px; width: min(92vw, 640px); max-height: 80vh; overflow: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+.modal header { padding: 14px 18px; border-bottom: 1px solid #e8eef3; display:flex; justify-content: space-between; align-items:center; }
+.modal .content { padding: 16px 18px; }
+.modal .close { background: transparent; border: 1px solid #9aa8b2; border-radius: 6px; padding: 6px 10px; color: inherit; }
+
 /* Skip to content link */
 .skip-link {
   position: absolute;

@@ -23,8 +23,10 @@
         <p>${p.summary||''}</p>
         ${outcomes?`<ul>${outcomes}</ul>`:''}
         <div class="tags">${tags}</div>
-        ${links?`<p style="margin-top:8px">${links}</p>`:''}
+        <p style="margin-top:8px">${links||''}</p>
+        <p><button class="btn" data-action="details">View details</button></p>
       `;
+      card.querySelector('[data-action="details"]').addEventListener('click', ()=>openProjectModal(p));
       el.appendChild(card);
     });
   }
@@ -54,4 +56,36 @@
       }
     } catch(e){ /* graceful fallback: keep static content */ }
   })();
+
+  // Modal logic
+  function openProjectModal(p){
+    const overlay = q('#project-modal');
+    const title = q('#project-title');
+    const content = q('#project-content');
+    const closeBtn = q('#project-close');
+    if(!overlay || !title || !content || !closeBtn) return;
+    title.textContent = p.title;
+    const outcomes = (p.outcomes||[]).map(o=>`<li>${o}</li>`).join('');
+    const links = (p.links||[]).map(l=>`<a href="${l.url}">${l.label}</a>`).join(' · ');
+    content.innerHTML = `
+      ${p.summary?`<p>${p.summary}</p>`:''}
+      ${outcomes?`<h4>Key outcomes</h4><ul>${outcomes}</ul>`:''}
+      ${links?`<p>${links}</p>`:''}
+    `;
+    overlay.setAttribute('data-open','true');
+    overlay.setAttribute('aria-hidden','false');
+    // focus management
+    closeBtn.focus();
+    function onKey(e){ if(e.key==='Escape'){ closeModal(); } }
+    function onClick(e){ if(e.target===overlay){ closeModal(); } }
+    function closeModal(){
+      overlay.setAttribute('data-open','false');
+      overlay.setAttribute('aria-hidden','true');
+      document.removeEventListener('keydown', onKey);
+      overlay.removeEventListener('click', onClick);
+    }
+    document.addEventListener('keydown', onKey);
+    overlay.addEventListener('click', onClick);
+    closeBtn.onclick = closeModal;
+  }
 })();

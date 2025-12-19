@@ -30,7 +30,8 @@
   <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/favicon-48.png"/>
   <link rel="icon" type="image/png" sizes="64x64" href="assets/icons/favicon-64.png"/>
   <link rel="manifest" href="manifest.json"/>
-  <link rel="stylesheet" href="assets/css/styles.css"/>
+  <link rel="stylesheet" href="assets/css/styles.css" media="print" onload="this.media='all'"/>
+  <noscript><link rel="stylesheet" href="assets/css/styles.css"/></noscript>
   <style>
     :root { --brand:#0a3d62; --bg:#f6f8fa; --card:#ffffff; --text:#2b2b2b; }
     * { box-sizing:border-box; }
@@ -75,7 +76,7 @@
   <header>
     <div class="nav">
       <div><strong>Mukul Joshi</strong> · DevOps Engineer</div>
-      <button class="menu-toggle" aria-controls="primary-nav" aria-expanded="false">Menu</button>
+      <button class="menu-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">Menu</button>
       <nav id="primary-nav">
         <a href="index.html" aria-current="page">Home</a>
         &nbsp;&nbsp;
@@ -110,6 +111,14 @@
       <p><a href="mailto:mukuljoshi50@gmail.com">mukuljoshi50@gmail.com</a></p>
       <p><a href="tel:+918057290286">+91 8057290286</a></p>
       <p><a href="https://www.linkedin.com/in/mukulmj" target="_blank" rel="noopener noreferrer">linkedin.com/in/mukulmj</a></p>
+      <hr style="border:none;border-top:1px solid #e8eef3;margin:12px 0"/>
+      <form action="https://formspree.io/f/xvzpzkzp" method="POST">
+        <label for="contact-email">Your email</label><br/>
+        <input id="contact-email" name="email" type="email" required style="width:100%;padding:8px 10px;border:1px solid #dde7f0;border-radius:6px;margin:6px 0;"/>
+        <label for="contact-message">Message</label><br/>
+        <textarea id="contact-message" name="message" rows="3" required style="width:100%;padding:8px 10px;border:1px solid #dde7f0;border-radius:6px;margin:6px 0;"></textarea>
+        <button class="btn" type="submit">Send</button>
+      </form>
     </div>
   </section>
 
@@ -123,6 +132,17 @@
     </div>
   </section>
 
+  <!-- Modal for project details -->
+  <div class="modal-overlay" id="project-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="project-title">
+    <div class="modal" role="document">
+      <header>
+        <h3 id="project-title" style="margin:0">Project</h3>
+        <button class="close" id="project-close" aria-label="Close">Close</button>
+      </header>
+      <div class="content" id="project-content"></div>
+    </div>
+  </div>
+
   <section id="blog" class="card" style="max-width:1000px;margin:0 auto 18px;">
     <h2>Blog <small style="font-weight:normal">· <a href="https://learning-new-things-daily.github.io/devops-hub/blog/index.html" target="_blank" rel="noopener noreferrer">View all posts</a></small></h2>
     <div class="list" id="blog-list">
@@ -134,6 +154,7 @@
   </section>
   </main>
   <footer class="footer">© Mukul Joshi · DevOps Engineer</footer>
+  <script src="assets/js/config.js" defer></script>
   <script src="assets/js/app.js" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
@@ -150,6 +171,14 @@
         const open = nav.getAttribute('data-open') === 'true';
         nav.setAttribute('data-open', open ? 'false' : 'true');
         btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+      });
+      // Close on Escape
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape'){
+          nav.setAttribute('data-open','false');
+          btn.setAttribute('aria-expanded','false');
+          btn.focus();
+        }
       });
     })();
   </script>
