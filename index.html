@@ -107,79 +107,26 @@
 
   <section id="projects" class="card" style="max-width:1000px;margin:0 auto 18px;">
     <h2>Projects</h2>
-    <div class="grid">
-      <div class="card">
-        <h3><span class="marker">🔧</span>AWS Infrastructure Automation (Nxtpe)</h3>
-        <p>Reusable Terraform modules for VPC, EC2, RDS, and IAM with Jenkins CI/CD integration.</p>
-        <ul>
-          <li>Standardized modules reduced manual provisioning and improved repeatability.</li>
-          <li>Plan/apply gating increased change confidence and auditability.</li>
-        </ul>
-        <div class="tags"><span class="tag">AWS</span><span class="tag">Terraform</span><span class="tag">Jenkins</span></div>
-        <p style="margin-top:8px">
-          <a href="projects.html#nxtpe">Case study</a>
-        </p>
-      </div>
-      <div class="card">
-        <h3><span class="marker">📊</span>Google Cloud Monitoring (ShareChat)</h3>
-        <p>Configured GCP monitoring metrics, dashboards, and operational documentation.</p>
-        <ul>
-          <li>Actionable SLO dashboards improved visibility for on‑call workflows.</li>
-          <li>Aligned alerts with incident response to reduce detection time.</li>
-        </ul>
-        <div class="tags"><span class="tag">GCP</span><span class="tag">Monitoring</span><span class="tag">Dashboards</span></div>
-        <p style="margin-top:8px">
-          <a href="projects.html#sharechat">Case study</a>
-        </p>
-      </div>
-      <div class="card">
-        <h3><span class="marker">🛡️</span>OpenShift CI/CD Automation (IFTAS / REBIT)</h3>
-        <p>CI/CD automation, security scans, and Quay registry management for OpenShift.</p>
-        <ul>
-          <li>Security scans integrated as gates to enforce compliance.</li>
-          <li>Automated image promotion streamlined multi‑env releases.</li>
-        </ul>
-        <div class="tags"><span class="tag">OpenShift</span><span class="tag">CI/CD</span><span class="tag">Security</span></div>
-        <p style="margin-top:8px">
-          <a href="projects.html#iftas-rebit">Case study</a>
-        </p>
-      </div>
+    <div class="grid" id="projects-list">
+      <!-- Fallback content: will be replaced when JSON loads -->
+      <noscript>
+        <div class="card"><h3>AWS Infrastructure Automation (Nxtpe)</h3><p>Reusable Terraform modules for VPC, EC2, RDS, and IAM with Jenkins CI/CD integration.</p></div>
+      </noscript>
     </div>
   </section>
 
   <section id="blog" class="card" style="max-width:1000px;margin:0 auto 18px;">
     <h2>Blog <small style="font-weight:normal">· <a href="https://learning-new-things-daily.github.io/devops-hub/blog/index.html" target="_blank" rel="noopener noreferrer">View all posts</a></small></h2>
-    <div class="list">
-      <div>
-        <h3><a href="post-terraform-modules.html">Designing Reusable Terraform Modules on AWS</a></h3>
-        <p>Patterns for DRY infrastructure: variables, locals, workspaces, and CI pipelines.</p>
-      </div>
-      <div>
-        <h3><a href="post-jenkins-k8s-ci.html">Jenkins + Kubernetes: Fast CI at Scale</a></h3>
-        <p>Autoscaling agents, caching strategies, and secrets management for reliable builds.</p>
-      </div>
+    <div class="list" id="blog-list">
+      <!-- Fallback content: will be replaced when JSON loads -->
+      <noscript>
+        <div><h3><a href="post-terraform-modules.html">Designing Reusable Terraform Modules on AWS</a></h3></div>
+      </noscript>
     </div>
   </section>
 
   <footer class="footer">© Mukul Joshi · DevOps Engineer</footer>
-  <script>
-    // Blog loader (scaffold): replace FEED_URL with a JSON/RSS endpoint later.
-    // This keeps your site fast and avoids CORS issues until the blog exposes a feed.
-    (function(){
-      const FEED_URL = null; // e.g., 'https://learning-new-things-daily.github.io/devops-hub/blog/feed.json'
-      if(!FEED_URL) return; // No dynamic loading until a feed is available
-      fetch(FEED_URL).then(r=>r.json()).then(items=>{
-        const list = document.querySelector('#blog .list');
-        if(!list) return;
-        list.innerHTML = '';
-        items.slice(0,3).forEach(item=>{
-          const div = document.createElement('div');
-          div.innerHTML = `<h3><a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.title}</a></h3><p>${item.summary||''}</p>`;
-          list.appendChild(div);
-        });
-      }).catch(()=>{});
-    })();
-  </script>
+  <script src="scripts/app.js" defer></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js').catch(()=>{});

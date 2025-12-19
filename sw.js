@@ -6,6 +6,7 @@ const ASSETS = [
   './resume.html',
   './resume-preview.html',
   './styles.css',
+  './scripts/app.js',
   './favicon-16.png',
   './favicon-32.png',
   './favicon-48.png',
@@ -13,6 +14,8 @@ const ASSETS = [
   './apple-touch-icon.png',
   './icon-192.png',
   './icon-512.png'
+  './data/projects.json',
+  './data/posts.json'
 ];
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)));
