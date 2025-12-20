@@ -14,15 +14,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Install link checker
+      - name: Install tools (link checker + ajv)
         run: |
-          npm i -g broken-link-checker ajv-cli
+          npm i -g broken-link-checker ajv-cli ajv-formats
       - name: Validate JSON schemas
         run: |
-          echo '{"type":"array","items":{"type":"object","properties":{"title":{"type":"string"},"summary":{"type":"string"},"tags":{"type":"array","items":{"type":"string"}},"outcomes":{"type":"array","items":{"type":"string"}},"links":{"type":"array","items":{"type":"object","properties":{"label":{"type":"string"},"url":{"type":"string"}}}}},"required":["title"]}}' > project.schema.json
-          echo '{"type":"array","items":{"type":"object","properties":{"title":{"type":"string"},"url":{"type":"string"},"external":{"type":"boolean"},"summary":{"type":"string"}},"required":["title","url"]}}' > post.schema.json
-          npx ajv validate -s project.schema.json -d data/projects.json
-          npx ajv validate -s post.schema.json -d data/posts.json
+          npx ajv -c ajv-formats validate -s data/schemas/project.schema.json -d data/projects.json
+          npx ajv -c ajv-formats validate -s data/schemas/post.schema.json -d data/posts.json
       - name: Check links
         run: |
           blc --exclude-external --filter-level 3 --recursive . || true

@@ -38,3 +38,4 @@
 - If your base path changes on GitHub Pages, update `manifest.json` (`start_url`, `scope`).
 - After pushing, validate social cards and test dark mode persistence.
  - Keep `robots.txt` and `sitemap.xml` at the site root to avoid crawler issues.
+
