@@ -17,10 +17,16 @@ body { @apply bg-slate-50 text-slate-800; }
 
 /* Simple dark theme toggle */
 .theme-dark body { background-color: #0b0f14; color: #e5eefc; }
+.theme-dark { --brand: #7dd3fc; }
 
 /* Dark mode overrides for common Tailwind utility combos used in UI */
 .theme-dark .bg-white { background-color: #0f172a !important; } /* slate-900 */
+.theme-dark .bg-slate-50 { background-color: #0f172a !important; }
+.theme-dark .bg-slate-100 { background-color: #111827 !important; } /* near slate-800 */
+.theme-dark .bg-slate-200 { background-color: #1f2937 !important; }
 .theme-dark .text-slate-800 { color: #e5eefc !important; }
+.theme-dark .text-slate-900 { color: #e5eefc !important; }
+.theme-dark .text-black { color: #e5eefc !important; }
 .theme-dark .text-slate-700 { color: #e2ecfb !important; }
 .theme-dark .text-slate-600 { color: #cbd5e1 !important; }
 .theme-dark .text-slate-500 { color: #cbd5e1 !important; }
@@ -35,3 +41,6 @@ body { @apply bg-slate-50 text-slate-800; }
 	border-color: #334155 !important;
 }
 .theme-dark .site-header, .theme-dark .site-footer { color: #cbd5e1; }
+
+/* SVG brand stroke in dark mode */
+.theme-dark svg polyline { stroke: var(--brand) !important; }

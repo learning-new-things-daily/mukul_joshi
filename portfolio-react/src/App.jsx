@@ -1,4 +1,5 @@
 import { Routes, Route, Link, Navigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import Home from './pages/Home.jsx'
 import Projects from './pages/Projects.jsx'
 import Blog from './pages/Blog.jsx'
@@ -9,6 +10,11 @@ import PostDetail from './pages/PostDetail.jsx'
 export default function App(){
   return (
     <div className="mx-auto max-w-5xl p-4">
+      {/* Apply saved theme on load */}
+      {useEffect(()=>{
+        const saved = localStorage.getItem('theme')
+        if(saved === 'dark'){ document.documentElement.classList.add('theme-dark') }
+      }, [])}
       <header className="site-header flex items-center justify-between py-3">
         <div><strong>Mukul Joshi</strong> · DevOps Engineer</div>
         <nav className="site-nav flex gap-3">

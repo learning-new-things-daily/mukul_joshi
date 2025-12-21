@@ -35,8 +35,8 @@ export default function Terminal(){
     }
     else if(t.startsWith('theme')){
       if(t.includes('--set')){
-        if(t.includes('dark')){ document.documentElement.classList.add('theme-dark'); out='Theme: dark' }
-        else if(t.includes('light')){ document.documentElement.classList.remove('theme-dark'); out='Theme: light' }
+        if(t.includes('dark')){ document.documentElement.classList.add('theme-dark'); localStorage.setItem('theme','dark'); out='Theme: dark' }
+        else if(t.includes('light')){ document.documentElement.classList.remove('theme-dark'); localStorage.setItem('theme','light'); out='Theme: light' }
         else { out='Usage: theme --set <dark|light>' }
       } else if(t.includes('--status')) {
         out = document.documentElement.classList.contains('theme-dark') ? 'Theme: dark' : 'Theme: light'
