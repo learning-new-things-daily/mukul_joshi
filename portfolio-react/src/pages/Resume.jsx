@@ -13,7 +13,7 @@ export default function Resume(){
           <p>📞 <a className="text-blue-700 hover:underline" href="tel:+918057290286">+91 8057290286</a></p>
           <p>✉️ <a className="text-blue-700 hover:underline" href="mailto:mukuljoshi50@gmail.com">mukuljoshi50@gmail.com</a></p>
           <p>🔗 <a className="text-blue-700 hover:underline" href="https://www.linkedin.com/in/mukulmj" target="_blank" rel="noopener noreferrer">linkedin.com/in/mukulmj</a></p>
-          <div className="mt-2 flex gap-2">
+          <div className="mt-2 flex gap-2 no-print">
             <Link to="/" className="btn">← Back to Portfolio</Link>
             <button className="btn" onClick={() => window.print()}>Download PDF</button>
             <Link to="/resume-preview" className="btn">View Styled Preview</Link>

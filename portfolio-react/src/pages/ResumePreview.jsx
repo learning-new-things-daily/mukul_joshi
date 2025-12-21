@@ -14,7 +14,7 @@ export default function ResumePreview(){
             <p>📞 <a className="text-brand" href="tel:+918057290286">+91 8057290286</a></p>
             <p>✉️ <a className="text-brand" href="mailto:mukuljoshi50@gmail.com">mukuljoshi50@gmail.com</a></p>
             <p>🔗 <a className="text-brand" href="https://www.linkedin.com/in/mukulmj" target="_blank" rel="noopener noreferrer">linkedin.com/in/mukulmj</a></p>
-            <p className="mt-2">
+            <p className="mt-2 no-print">
               <Link to="/" className="btn mr-2">← Back to Portfolio</Link>
               <button className="btn" onClick={()=>window.print()}>Download PDF</button>
             </p>

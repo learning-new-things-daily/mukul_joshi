@@ -9,9 +9,9 @@ import PostDetail from './pages/PostDetail.jsx'
 export default function App(){
   return (
     <div className="mx-auto max-w-5xl p-4">
-      <header className="flex items-center justify-between py-3">
+      <header className="site-header flex items-center justify-between py-3">
         <div><strong>Mukul Joshi</strong> · DevOps Engineer</div>
-        <nav className="flex gap-3">
+        <nav className="site-nav flex gap-3">
           <Link className="btn" to="/">Home</Link>
           <Link className="btn" to="/projects">Projects</Link>
           <Link className="btn" to="/blog">Blog</Link>
@@ -33,7 +33,7 @@ export default function App(){
         <Route path="/pages/post-terraform-modules.html" element={<Navigate to="/blog/post-terraform-modules" replace />} />
         <Route path="/pages/post-jenkins-k8s-ci.html" element={<Navigate to="/blog/post-jenkins-k8s-ci" replace />} />
       </Routes>
-      <footer className="text-center text-xs text-slate-500 py-6">© Mukul Joshi · DevOps Engineer</footer>
+      <footer className="site-footer text-center text-xs text-slate-500 py-6">© Mukul Joshi · DevOps Engineer</footer>
     </div>
   )
 }

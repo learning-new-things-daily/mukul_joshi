@@ -8,3 +8,9 @@ body { @apply bg-slate-50 text-slate-800; }
 
 .btn { @apply inline-block min-h-[44px] px-3 py-2 rounded-md border border-slate-700 text-white bg-brand; }
 .btn:hover { @apply bg-slate-800; }
+
+/* Print cleanup: hide app chrome and button bars */
+@media print {
+	.site-header, .site-footer, .site-nav, .no-print { display: none !important; }
+	body { background: #fff !important; }
+}
