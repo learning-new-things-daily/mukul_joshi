@@ -44,3 +44,7 @@ body { @apply bg-slate-50 text-slate-800; }
 
 /* SVG brand stroke in dark mode */
 .theme-dark svg polyline { stroke: var(--brand) !important; }
+
+/* Modal overlay tweaks for dark mode */
+.theme-dark .bg-black\/60 { background-color: rgba(0,0,0,0.6) !important; }
+.theme-dark .fixed .bg-white { background-color: #0f172a !important; }

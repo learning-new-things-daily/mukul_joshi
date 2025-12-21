@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const HELP = `Available commands:\nwhoami\nskills --list\nexperience --show\nopen <resume|preview|projects|blog>\nprint <resume|preview>\ntheme --set <dark|light>\ntheme --status\nabout\ncerts --list\npipeline --run\ndeploy sandbox --template <hello|chart|terminal>\ndeploy list\nhistory\nclear`;
+const HELP = `Available commands:\nwhoami\nskills --list\nexperience --show\nopen <resume|preview|projects|blog>\nprint <resume|preview>\ntheme --set <dark|light>\ntheme --status\nabout\ncerts --list\npipeline --run\npipeline --retry\npipeline --resume\ncontact --run <email>\ndeploy sandbox --template <hello|chart|terminal|markdown|table>\ndeploy open <last|index>\ndeploy list\nhistory\nclear`;
 
 export default function Terminal(){
   const navigate = useNavigate()
@@ -52,14 +52,42 @@ export default function Terminal(){
       document.dispatchEvent(new CustomEvent('pipeline-run'))
       out = 'Triggered pipeline run.'
     }
+    else if(t === 'pipeline --retry'){
+      document.dispatchEvent(new Event('pipeline-retry'))
+      out = 'Requested retry of last pipeline.'
+    }
+    else if(t === 'pipeline --resume'){
+      document.dispatchEvent(new Event('pipeline-resume'))
+      out = 'Requested resume from failed step.'
+    }
+    else if(t.startsWith('contact --run')){
+      const m = t.match(/contact\s+--run\s+(\S+)/)
+      const email = m?.[1]
+      if(email){
+        document.dispatchEvent(new CustomEvent('contact-request', { detail: { email } }))
+        out = `Triggered contact pipeline for '${email}'.`
+      } else {
+        out = 'Usage: contact --run <email>'
+      }
+    }
     else if(t.startsWith('deploy sandbox')){
       const match = t.match(/--template\s+(\w+)/)
       const tpl = match?.[1]
-      if(['hello','chart','terminal'].includes(tpl)){
+      if(['hello','chart','terminal','markdown','table'].includes(tpl)){
         document.dispatchEvent(new CustomEvent('deploy-request', { detail: { template: tpl } }))
         out = `Requested deployment for sandbox template '${tpl}'. Watch the Pipeline Run panel.`
       } else {
-        out = "Usage: deploy sandbox --template <hello|chart|terminal>"
+        out = "Usage: deploy sandbox --template <hello|chart|terminal|markdown|table>"
+      }
+    }
+    else if(t.startsWith('deploy open')){
+      const arg = t.split(' ')[2]
+      if(arg === 'last'){ document.dispatchEvent(new CustomEvent('deploy-open', { detail: { which: 'last' } })); out='Opening last deployment preview.' }
+      else {
+        const idx = parseInt(arg, 10)
+        if(Number.isFinite(idx)){
+          document.dispatchEvent(new CustomEvent('deploy-open', { detail: { which: idx } })); out=`Opening deployment #${idx} preview.`
+        } else { out='Usage: deploy open <last|index>' }
       }
     }
     else if(t === 'deploy list'){
