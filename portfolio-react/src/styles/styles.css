@@ -48,3 +48,8 @@ body { @apply bg-slate-50 text-slate-800; }
 /* Modal overlay tweaks for dark mode */
 .theme-dark .bg-black\/60 { background-color: rgba(0,0,0,0.6) !important; }
 .theme-dark .fixed .bg-white { background-color: #0f172a !important; }
+
+/* Approval modal dark theme */
+.theme-dark .modal-overlay { background-color: rgba(2, 6, 23, 0.7) !important; }
+.theme-dark .modal-card { background-color: #0f172a !important; color: #e5eefc !important; border-color: #334155 !important; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+.theme-dark .modal-card h3 { color: var(--brand) !important; }

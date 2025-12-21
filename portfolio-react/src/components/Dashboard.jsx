@@ -403,8 +403,8 @@ export default function Dashboard(){
 
       {/* Approval Modal */}
       {approvalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center">
-          <div className="bg-white border rounded-lg w-[90vw] max-w-xl p-4">
+        <div className="fixed inset-0 z-50 bg-black/60 modal-overlay flex items-center justify-center">
+          <div className="bg-white border rounded-lg w-[90vw] max-w-xl p-4 modal-card">
             <h3 className="text-brand font-semibold mb-2">Approval: Send Message</h3>
             <div className="grid gap-2">
               <label className="text-sm">Email
