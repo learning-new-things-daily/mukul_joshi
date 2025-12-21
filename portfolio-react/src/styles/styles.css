@@ -14,3 +14,6 @@ body { @apply bg-slate-50 text-slate-800; }
 	.site-header, .site-footer, .site-nav, .no-print { display: none !important; }
 	body { background: #fff !important; }
 }
+
+/* Simple dark theme toggle */
+.theme-dark body { background-color: #0b0f14; color: #e5eefc; }

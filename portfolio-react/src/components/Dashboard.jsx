@@ -70,6 +70,13 @@ export default function Dashboard(){
     }, 250)
   }
 
+  // Listen for terminal-triggered pipeline runs
+  useEffect(()=>{
+    const handler = () => runPipeline()
+    document.addEventListener('pipeline-run', handler)
+    return () => document.removeEventListener('pipeline-run', handler)
+  }, [])
+
   return (
     <section className="grid gap-4">
       <h2 className="text-xl text-brand">Live Dashboard</h2>
