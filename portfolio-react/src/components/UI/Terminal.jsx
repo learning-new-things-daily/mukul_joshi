@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const HELP = `Available commands:\nwhoami\nskills --list\nexperience --show\nopen <resume|preview|projects|blog>\nprint <resume|preview>\ntheme --set <dark|light>\ntheme --status\nabout\ncerts --list\npipeline --run\nhistory\nclear`;
+const HELP = `Available commands:\nwhoami\nskills --list\nexperience --show\nopen <resume|preview|projects|blog>\nprint <resume|preview>\ntheme --set <dark|light>\ntheme --status\nabout\ncerts --list\npipeline --run\ndeploy sandbox --template <hello|chart|terminal>\ndeploy list\nhistory\nclear`;
 
 export default function Terminal(){
   const navigate = useNavigate()
@@ -51,6 +51,20 @@ export default function Terminal(){
     else if(t === 'pipeline --run'){
       document.dispatchEvent(new CustomEvent('pipeline-run'))
       out = 'Triggered pipeline run.'
+    }
+    else if(t.startsWith('deploy sandbox')){
+      const match = t.match(/--template\s+(\w+)/)
+      const tpl = match?.[1]
+      if(['hello','chart','terminal'].includes(tpl)){
+        document.dispatchEvent(new CustomEvent('deploy-request', { detail: { template: tpl } }))
+        out = `Requested deployment for sandbox template '${tpl}'. Watch the Pipeline Run panel.`
+      } else {
+        out = "Usage: deploy sandbox --template <hello|chart|terminal>"
+      }
+    }
+    else if(t === 'deploy list'){
+      const items = window.__sessionDeployments || []
+      out = items.length ? items.map((d,i)=>`${i+1}. ${d.name} → ${d.url}`).join('\n') : 'No deployments.'
     }
     else if(t === 'history'){
       out = history.length ? history.map((h,i)=>`${i+1}. ${h}`).join('\n') : 'No history.'
