@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { fetchLatestWorkflowRuns } from '../utils/github.js'
+import { readVitals } from '../utils/webVitals.js'
 
 function Sparkline({ values }){
   // Simple sparkline using inline SVG
@@ -54,9 +56,14 @@ export default function Dashboard(){
   const [lastTemplate, setLastTemplate] = useState(null)
   const [previewUrl, setPreviewUrl] = useState(null)
   const [failedIndex, setFailedIndex] = useState(null)
+  // GitHub Actions runs
+  const [ghRuns, setGhRuns] = useState({ configured: false, runs: [], error: null })
+  // Web Vitals
+  const [vitals, setVitals] = useState(readVitals())
   // Contact pipeline
   const [contactEmail, setContactEmail] = useState('')
   const [approvalOpen, setApprovalOpen] = useState(false)
+  const [approvalClosing, setApprovalClosing] = useState(false)
   const [approvalForm, setApprovalForm] = useState({ email: '', name: '', message: '' })
   const approvalResolveRef = useRef(null)
 
@@ -72,16 +79,19 @@ export default function Dashboard(){
   // Approval modal helpers
   const waitForApproval = (init) => {
     setApprovalForm(init)
+    setApprovalClosing(false)
     setApprovalOpen(true)
     return new Promise(resolve => { approvalResolveRef.current = resolve })
   }
   const submitApproval = () => {
-    setApprovalOpen(false)
+    setApprovalClosing(true)
+    setTimeout(()=> setApprovalOpen(false), 160)
     const data = { approved: true, ...approvalForm }
     if(approvalResolveRef.current) approvalResolveRef.current(data)
   }
   const cancelApproval = () => {
-    setApprovalOpen(false)
+    setApprovalClosing(true)
+    setTimeout(()=> setApprovalOpen(false), 160)
     if(approvalResolveRef.current) approvalResolveRef.current({ approved: false })
   }
 
@@ -232,6 +242,21 @@ export default function Dashboard(){
     return () => document.removeEventListener('pipeline-run', handler)
   }, [])
 
+  // Fetch GitHub Actions latest runs
+  useEffect(()=>{
+    let active = true
+    fetchLatestWorkflowRuns({ perPage: 5 }).then(res => { if(active) setGhRuns(res) })
+    const t = setInterval(()=> fetchLatestWorkflowRuns({ perPage: 5 }).then(res => { if(active) setGhRuns(res) }), 60_000)
+    return ()=>{ active = false; clearInterval(t) }
+  }, [])
+
+  // Listen to Web Vitals updates
+  useEffect(()=>{
+    const handler = (e) => setVitals(e.detail)
+    document.addEventListener('web-vitals-updated', handler)
+    return ()=> document.removeEventListener('web-vitals-updated', handler)
+  }, [])
+
   // Listen for deploy requests from Terminal
   useEffect(()=>{
     const handler = (e) => runPipeline(e.detail?.template)
@@ -323,6 +348,41 @@ export default function Dashboard(){
           <Sparkline values={dep} />
         </div>
       </div>
+      {/* GitHub Actions Status */}
+      <div className="border rounded-lg p-3 bg-white">
+        <h3 className="font-semibold text-brand mb-2">CI/CD — Latest Workflow Runs</h3>
+        {!ghRuns.configured ? (
+          <p className="text-sm text-slate-600">Configure GitHub owner/repo in <code>src/config/siteConfig.js</code> to show workflow runs.</p>
+        ) : ghRuns.error ? (
+          <p className="text-sm text-red-600">{ghRuns.error}</p>
+        ) : ghRuns.runs.length === 0 ? (
+          <p className="text-sm text-slate-600">No runs found.</p>
+        ) : (
+          <ul className="text-sm space-y-2">
+            {ghRuns.runs.map(r => (
+              <li key={r.id} className="flex flex-wrap items-center gap-2">
+                <a className="text-brand font-semibold" href={r.html_url} target="_blank" rel="noopener noreferrer">#{r.run_number} {r.name}</a>
+                <span className="text-xs text-slate-500">{r.branch}@{r.sha}</span>
+                <span className={`px-2 py-1 rounded-full text-xs border ${r.conclusion==='success'?'bg-green-100 border-green-300': r.conclusion==='failure' ? 'bg-red-100 border-red-300' : 'bg-slate-100 border-slate-300'}`}>{r.conclusion || r.status}</span>
+                {r.durationSec != null && (<span className="text-xs">· {r.durationSec.toFixed(1)}s</span>)}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* Web Vitals */}
+      <div className="border rounded-lg p-3 bg-white">
+        <h3 className="font-semibold text-brand mb-2">Web Performance — Core Web Vitals</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {['LCP','FID','CLS','TTFB'].map(k => (
+            <div key={k} className="border rounded p-2 bg-slate-50">
+              <div className="text-xs text-slate-600">{k}</div>
+              <div className="text-lg">{(vitals[k]?.at(-1)?.v ?? '—')}</div>
+            </div>
+          ))}
+        </div>
+      </div>
       <div className="border rounded-lg p-3 bg-white">
         <h3 className="font-semibold text-brand mb-2">Pipeline Run</h3>
         <div className="flex flex-wrap gap-2 mb-2">
@@ -403,8 +463,8 @@ export default function Dashboard(){
 
       {/* Approval Modal */}
       {approvalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 modal-overlay flex items-center justify-center">
-          <div className="bg-white border rounded-lg w-[90vw] max-w-xl p-4 modal-card">
+        <div className={`fixed inset-0 z-50 bg-black/60 modal-overlay backdrop-blur-sm flex items-center justify-center ${approvalClosing ? 'animate-modal-overlay-out' : 'animate-modal-overlay-in'}`}>
+          <div className={`bg-white border rounded-lg w-[90vw] max-w-xl p-4 modal-card ${approvalClosing ? 'animate-modal-card-out' : 'animate-modal-card-in'}`}>
             <h3 className="text-brand font-semibold mb-2">Approval: Send Message</h3>
             <div className="grid gap-2">
               <label className="text-sm">Email

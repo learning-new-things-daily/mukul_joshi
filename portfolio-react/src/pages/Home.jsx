@@ -4,6 +4,7 @@ import posts from '../data/posts.json'
 import Dashboard from '../components/Dashboard.jsx'
 import Terminal from '../components/UI/Terminal.jsx'
 import Contact from '../components/Contact.jsx'
+import DevOpsBadges from '../components/DevOpsBadges.jsx'
 
 export default function Home(){
   return (
@@ -19,6 +20,7 @@ export default function Home(){
       </section>
 
       <Dashboard />
+      <DevOpsBadges />
       <Terminal />
 
       <section className="bg-white border rounded-lg p-4">

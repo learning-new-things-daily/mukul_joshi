@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: portfolio-react:latest
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/"]
+      interval: 20s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
