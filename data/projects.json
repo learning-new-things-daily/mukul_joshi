@@ -1,8 +1,8 @@
 [
   {
-    "id": "nxtpe",
+    "id": "Client_1",
     "emoji": "🔧",
-    "title": "AWS Infrastructure Automation (Nxtpe)",
+    "title": "AWS Infrastructure Automation (Client_1)",
     "summary": "Reusable Terraform modules for VPC, EC2, RDS, and IAM with Jenkins CI/CD integration.",
     "tags": ["AWS", "Terraform", "Jenkins"],
     "outcomes": [
@@ -10,13 +10,13 @@
       "Plan/apply gating increased change confidence and auditability."
     ],
     "links": [
-      { "label": "Case study", "url": "projects.html#nxtpe" }
+      { "label": "Case study", "url": "projects.html#Client_1" }
     ]
   },
   {
-    "id": "sharechat",
+    "id": "Client_2",
     "emoji": "📊",
-    "title": "Google Cloud Monitoring (ShareChat)",
+    "title": "Google Cloud Monitoring (Client_2)",
     "summary": "Configured GCP monitoring metrics, dashboards, and operational documentation.",
     "tags": ["GCP", "Monitoring", "Dashboards"],
     "outcomes": [
@@ -24,13 +24,13 @@
       "Aligned alerts with incident response to reduce detection time."
     ],
     "links": [
-      { "label": "Case study", "url": "projects.html#sharechat" }
+      { "label": "Case study", "url": "projects.html#Client_2" }
     ]
   },
   {
-    "id": "iftas-rebit",
+    "id": "Client_3-Client_4",
     "emoji": "🛡️",
-    "title": "OpenShift CI/CD Automation (IFTAS / REBIT)",
+    "title": "OpenShift CI/CD Automation (Client_3 / Client_4)",
     "summary": "CI/CD automation, security scans, and Quay registry management for OpenShift.",
     "tags": ["OpenShift", "CI/CD", "Security"],
     "outcomes": [
@@ -38,7 +38,7 @@
       "Automated image promotion streamlined multi‑env releases."
     ],
     "links": [
-      { "label": "Case study", "url": "projects.html#iftas-rebit" }
+      { "label": "Case study", "url": "projects.html#Client_3-Client_4" }
     ]
   }
 ]

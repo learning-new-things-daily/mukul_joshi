@@ -43,8 +43,8 @@ export default function Resume(){
             <li>Worked extensively with OpenShift clusters for container orchestration and deployments</li>
             <li>Configured and managed Quay container registry and automated image lifecycle management</li>
             <li>Integrated Blackduck and Coverity scans into CI/CD pipelines for security compliance</li>
-            <li>Contributed to GCP monitoring and documentation for ShareChat client</li>
-            <li>Managed AWS infrastructure provisioning for Nxtpe client using Terraform</li>
+            <li>Contributed to GCP monitoring and documentation for Client_2 client</li>
+            <li>Managed AWS infrastructure provisioning for Client_1 client using Terraform</li>
             <li>Implemented monitoring using Prometheus, Grafana, and Cloud Monitoring</li>
             <li>Collaborated using JIRA, Confluence, and ServiceNow for change management</li>
           </ul>
@@ -73,9 +73,9 @@ export default function Resume(){
       <section className="mt-6 space-y-2">
         <h2 className="text-lg font-semibold border-b pb-1">Projects</h2>
         <ul className="list-disc ml-5 space-y-1">
-          <li><span className="font-semibold">AWS Infrastructure Automation (Nxtpe):</span> Built reusable Terraform modules for VPC, EC2, RDS, and IAM with Jenkins CI/CD integration</li>
-          <li><span className="font-semibold">Google Cloud Monitoring (ShareChat):</span> Configured GCP monitoring metrics, dashboards, and operational documentation</li>
-          <li><span className="font-semibold">OpenShift CI/CD Automation (IFTAS / REBIT):</span> Implemented CI/CD automation, security scans, and Quay registry management</li>
+          <li><span className="font-semibold">AWS Infrastructure Automation (Client_1):</span> Built reusable Terraform modules for VPC, EC2, RDS, and IAM with Jenkins CI/CD integration</li>
+          <li><span className="font-semibold">Google Cloud Monitoring (Client_2):</span> Configured GCP monitoring metrics, dashboards, and operational documentation</li>
+          <li><span className="font-semibold">OpenShift CI/CD Automation (Client_3 / Client_4):</span> Implemented CI/CD automation, security scans, and Quay registry management</li>
         </ul>
       </section>
 
