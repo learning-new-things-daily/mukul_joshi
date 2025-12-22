@@ -1,4 +1,6 @@
-package-lock.json
+/# Ignore only root lockfile, allow app lockfile
+/package-lock.json
+!portfolio-react/package-lock.json
 node-modules/
 dist
 .env
