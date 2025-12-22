@@ -4,5 +4,5 @@ export const SITE = {
   baseUrl: '/',
   // Optional: configure to enable GitHub Actions status widgets and badges
   githubOwner: 'learning-new-things-daily', // e.g., 'mukuljoshi'
-  githubRepo: 'blog',  // e.g., 'learning-new-things-daily'
+  githubRepo: 'mukul_joshi',  // e.g., 'learning-new-things-daily'
 }
