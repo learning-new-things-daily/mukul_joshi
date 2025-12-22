@@ -1,0 +1,169 @@
+/* Shared site styles and accessibility tweaks */
+
+/* Mark current nav link */
+.nav a[aria-current="page"] {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Consistent focus styles */
+a:focus-visible, .btn:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Visual theme enhancements */
+:root {
+  --brand-dark: #08324c;
+  --accent: #0e6ba8;
+  --focus: #0a9cf0;
+}
+
+/* Dark theme variables (override inline :root variables via specificity) */
+:root[data-theme='dark'] {
+  --bg: #0b1220;
+  --card: #0f172a;
+  --text: #e2e8f0;
+  --brand: #58a6ff;
+}
+
+/* Improve accent contrast in dark mode */
+:root[data-theme='dark'] { --accent: #7cc4ff; }
+
+.gradient-text {
+  background: linear-gradient(90deg, #0a3d62 0%, #0e6ba8 50%, #084a73 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn.btn--shine {
+  background: linear-gradient(135deg, #0a3d62, #0e6ba8);
+  box-shadow: 0 6px 16px rgba(14,107,168,0.25);
+  border: 1px solid var(--brand-dark);
+}
+.btn.btn--shine:hover {
+  filter: brightness(1.05);
+}
+
+.card.card--glass {
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(232,238,243,0.8);
+  backdrop-filter: saturate(160%) blur(8px);
+}
+
+.card.card--glow {
+  box-shadow: 0 8px 24px rgba(10,61,98,0.12);
+}
+.card.card--glow:hover {
+  box-shadow: 0 16px 38px rgba(14,107,168,0.18);
+}
+
+.hero--banner {
+  position: relative;
+  isolation: isolate;
+}
+.hero--banner::before {
+  content: "";
+  position: absolute;
+  inset: -80px 0 auto;
+  height: 260px;
+  z-index: -1;
+  background: radial-gradient(1200px 260px at 20% 0, rgba(14,107,168,0.15), transparent 70%),
+              radial-gradient(800px 220px at 80% 0, rgba(10,61,98,0.18), transparent 70%),
+              linear-gradient(180deg, rgba(8,74,115,0.12), transparent);
+}
+
+.tag {
+  background: #eef3f7;
+  border: 1px solid #dde7f0;
+  color: #234;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.tag:hover { box-shadow: 0 4px 10px rgba(14,107,168,0.12); transform: translateY(-1px); }
+
+h2 {
+  position: relative;
+}
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -6px;
+  width: 56px; height: 3px;
+  background: linear-gradient(90deg, #0a3d62, #0e6ba8);
+  border-radius: 2px;
+}
+
+/* Subtitle accent under hero title */
+.subtitle { color: var(--accent); margin: 6px 0 14px; font-weight: 600; }
+
+/* Emoji / icon marker before titles */
+.marker { font-size: 18px; margin-right: 8px; }
+
+/* Modal styles */
+.modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.55); display: none; align-items: center; justify-content: center; z-index: 1000; }
+.modal-overlay[data-open="true"] { display: flex; }
+.modal { background: var(--card); color: var(--text); border: 1px solid #e8eef3; border-radius: 10px; width: min(92vw, 640px); max-height: 80vh; overflow: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+.modal header { padding: 14px 18px; border-bottom: 1px solid #e8eef3; display:flex; justify-content: space-between; align-items:center; }
+.modal .content { padding: 16px 18px; }
+.modal .close { background: transparent; border: 1px solid #9aa8b2; border-radius: 6px; padding: 6px 10px; color: inherit; }
+
+/* Skip to content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 12px;
+  background: #fff;
+  color: #000;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e0e6ec;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  transition: top .2s ease;
+  z-index: 1000;
+}
+.skip-link:focus { top: 12px; }
+
+/* Mobile nav (hamburger) toggle */
+.menu-toggle { display: none; }
+@media (max-width: 600px) {
+  .menu-toggle {
+    display: inline-block;
+    background: var(--brand);
+    color: #fff;
+    border: 1px solid var(--brand-dark);
+    border-radius: 6px;
+    padding: 10px 14px;
+    min-height: 44px;
+  }
+  .nav nav { display: none; }
+  .nav nav[data-open="true"] { display: flex; }
+}
+
+/* Dark mode component contrast */
+:root[data-theme='dark'] .tag {
+  background: #22314f;
+  border-color: #3a4f73;
+  color: #e2e8f0;
+}
+:root[data-theme='dark'] .btn {
+  border-color: #9ecaff;
+}

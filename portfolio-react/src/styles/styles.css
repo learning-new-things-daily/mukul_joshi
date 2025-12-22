@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --brand:#0a3d62; }
+
+body { @apply bg-slate-50 text-slate-800; }
+
+.btn { @apply inline-block min-h-[44px] px-3 py-2 rounded-md border border-slate-700 text-white bg-brand; }
+.btn:hover { @apply bg-slate-800; }
+
+/* Print cleanup: hide app chrome and button bars */
+@media print {
+	.site-header, .site-footer, .site-nav, .no-print { display: none !important; }
+	body { background: #fff !important; }
+}
+
+/* Simple dark theme toggle */
+.theme-dark body { background-color: #0b0f14; color: #e5eefc; }
+.theme-dark { --brand: #7dd3fc; }
+
+/* Dark mode overrides for common Tailwind utility combos used in UI */
+.theme-dark .bg-white { background-color: #0f172a !important; } /* slate-900 */
+.theme-dark .bg-slate-50 { background-color: #0f172a !important; }
+.theme-dark .bg-slate-100 { background-color: #111827 !important; } /* near slate-800 */
+.theme-dark .bg-slate-200 { background-color: #1f2937 !important; }
+.theme-dark .text-slate-800 { color: #e5eefc !important; }
+.theme-dark .text-slate-900 { color: #e5eefc !important; }
+.theme-dark .text-black { color: #e5eefc !important; }
+.theme-dark .text-slate-700 { color: #e2ecfb !important; }
+.theme-dark .text-slate-600 { color: #cbd5e1 !important; }
+.theme-dark .text-slate-500 { color: #cbd5e1 !important; }
+.theme-dark .text-slate-400 { color: #94a3b8 !important; }
+.theme-dark .border { border-color: #334155 !important; } /* slate-700 */
+.theme-dark .text-brand { color: #7dd3fc !important; } /* sky-300 */
+.theme-dark .btn { background-color: var(--brand) !important; color: #e5eefc !important; border-color: #134e4a !important; }
+.theme-dark .btn:hover { background-color: #08324c !important; }
+.theme-dark input, .theme-dark textarea, .theme-dark select {
+	background-color: #0b1220 !important;
+	color: #e5eefc !important;
+	border-color: #334155 !important;
+}
+.theme-dark .site-header, .theme-dark .site-footer { color: #cbd5e1; }
+
+/* SVG brand stroke in dark mode */
+.theme-dark svg polyline { stroke: var(--brand) !important; }
+
+/* Modal overlay tweaks for dark mode */
+.theme-dark .bg-black\/60 { background-color: rgba(0,0,0,0.6) !important; }
+.theme-dark .fixed .bg-white { background-color: #0f172a !important; }
+
+/* Approval modal dark theme */
+.theme-dark .modal-overlay { background-color: rgba(2, 6, 23, 0.7) !important; }
+.theme-dark .modal-card { background-color: #0f172a !important; color: #e5eefc !important; border-color: #334155 !important; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+.theme-dark .modal-card h3 { color: var(--brand) !important; }
+
+/* Modal animations */
+@keyframes overlayIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes overlayOut { from { opacity: 1 } to { opacity: 0 } }
+@keyframes cardIn { from { opacity: 0; transform: translateY(8px) scale(0.98) } to { opacity: 1; transform: translateY(0) scale(1) } }
+@keyframes cardOut { from { opacity: 1; transform: translateY(0) scale(1) } to { opacity: 0; transform: translateY(8px) scale(0.98) } }
+.animate-modal-overlay-in { animation: overlayIn 160ms ease-out; }
+.animate-modal-overlay-out { animation: overlayOut 160ms ease-in forwards; }
+.animate-modal-card-in { animation: cardIn 180ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.animate-modal-card-out { animation: cardOut 140ms cubic-bezier(0.4, 0.0, 1, 1) forwards; }
