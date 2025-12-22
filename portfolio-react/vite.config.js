@@ -5,5 +5,5 @@ export default defineConfig({
   plugins: [react()],
   server: { port: 5173 },
   // Set base if deploying to GitHub Pages under a repo path
-  // base: '/devops-hub/'
+  base: '/mukul_joshi/'
 })
