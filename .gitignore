@@ -1,8 +1,13 @@
 /# Ignore only root lockfile, allow app lockfile
 /package-lock.json
 !portfolio-react/package-lock.json
-node-modules/
+
+# Node modules
+node_modules/
 dist
 .env
 .env.local
 .vscode
+
+# Vite cache for React app (avoid merge conflicts)
+portfolio-react/.vite/
