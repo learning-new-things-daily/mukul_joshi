@@ -1,12 +1,16 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import projects from '../data/projects.json'
-import posts from '../data/posts.json'
+import { getProjects, getPosts } from '../services/dataService.js'
 import Dashboard from '../components/Dashboard.jsx'
 import Terminal from '../components/UI/Terminal.jsx'
 import Contact from '../components/Contact.jsx'
 import DevOpsBadges from '../components/DevOpsBadges.jsx'
 
 export default function Home(){
+  const [projects, setProjects] = useState([])
+  const [posts, setPosts] = useState([])
+  useEffect(()=>{ getProjects().then(setProjects).catch(()=>setProjects([])) }, [])
+  useEffect(()=>{ getPosts().then(setPosts).catch(()=>setPosts([])) }, [])
   return (
     <div className="grid gap-4">
       <section className="bg-white border rounded-lg p-4">

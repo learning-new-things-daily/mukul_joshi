@@ -1,7 +1,10 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import posts from '../data/posts.json'
+import { getPosts } from '../services/dataService.js'
 
 export default function Blog(){
+  const [posts, setPosts] = useState([])
+  useEffect(()=>{ getPosts().then(setPosts).catch(()=>setPosts([])) }, [])
   return (
     <div className="grid gap-3">
       <h1 className="text-2xl text-brand">Blog</h1>

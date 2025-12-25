@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import posts from '../data/posts.json'
+import { getPosts } from '../services/dataService.js'
 
 export default function PostDetail(){
   const { slug } = useParams()
-  const post = posts.find(p => p.url.replace('.html','') === slug)
+  const [post, setPost] = useState(null)
+  useEffect(()=>{ getPosts().then(ps => setPost(ps.find(p => p.url.replace('.html','') === slug) || null)).catch(()=>setPost(null)) }, [slug])
   if(!post) return <p>Post not found.</p>
   return (
     <article className="prose">

@@ -1,6 +1,9 @@
-import projects from '../data/projects.json'
+import { useEffect, useState } from 'react'
+import { getProjects } from '../services/dataService.js'
 
 export default function Projects(){
+  const [projects, setProjects] = useState([])
+  useEffect(()=>{ getProjects().then(setProjects).catch(()=>setProjects([])) }, [])
   return (
     <div className="grid gap-3">
       <h1 className="text-2xl text-brand">Projects</h1>
