@@ -16,7 +16,7 @@ export default function Resume(){
           <div className="mt-2 flex gap-2 no-print">
             <Link to="/" className="btn">← Back to Portfolio</Link>
             <button className="btn" onClick={() => window.print()}>Download PDF</button>
-            <Link to="/resume-preview" className="btn">View Styled Preview</Link>
+            <Link to="/resume/preview" className="btn">View Styled Preview</Link>
           </div>
         </div>
       </header>

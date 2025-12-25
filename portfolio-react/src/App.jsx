@@ -34,7 +34,7 @@ export default function App(){
         <Route path="/resume/preview" element={<ResumePreview />} />
         {/* Legacy static paths → SPA routes */}
         <Route path="/pages/resume.html" element={<Navigate to="/resume" replace />} />
-        <Route path="/pages/resume-preview.html" element={<Navigate to="/resume/preview" replace />} />
+        <Route path="/pages/resume/preview.html" element={<Navigate to="/resume/preview" replace />} />
         <Route path="/pages/projects.html" element={<Navigate to="/projects" replace />} />
         <Route path="/pages/post-terraform-modules.html" element={<Navigate to="/blog/post-terraform-modules" replace />} />
         <Route path="/pages/post-jenkins-k8s-ci.html" element={<Navigate to="/blog/post-jenkins-k8s-ci" replace />} />
