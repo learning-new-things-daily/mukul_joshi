@@ -1,0 +1,34 @@
+name: Validate Data JSON
+on:
+  push:
+    paths:
+      - 'portfolio-react/public/data/**'
+      - 'portfolio-react/src/data/schemas/**'
+      - 'portfolio-react/scripts/validate-data.js'
+      - 'portfolio-react/package.json'
+  pull_request:
+    paths:
+      - 'portfolio-react/public/data/**'
+      - 'portfolio-react/src/data/schemas/**'
+      - 'portfolio-react/scripts/validate-data.js'
+      - 'portfolio-react/package.json'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        working-directory: portfolio-react
+        run: npm ci
+      - name: Validate JSON data
+        working-directory: portfolio-react
+        run: npm run validate:data

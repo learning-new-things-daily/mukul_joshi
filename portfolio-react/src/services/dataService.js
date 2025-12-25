@@ -77,3 +77,11 @@ export async function getProjects(){
 }
 
 export function clearCache(){ cache.posts = null; cache.projects = null }
+
+export async function getMeta(){
+  const src = SITE.dataSource || 'json'
+  if(src === 'json') return await loadJson('meta')
+  if(src === 'bundled') { const mod = await import('../data/meta.json'); return mod.default }
+  if(src === 'api') { const base = SITE.apiBase?.replace(/\/$/, ''); const resp = await fetch(`${base}/meta`); if(!resp.ok) throw new Error('API meta error'); return await resp.json() }
+  return { version: 'unknown', lastUpdated: new Date().toISOString() }
+}
