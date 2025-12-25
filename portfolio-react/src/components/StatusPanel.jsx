@@ -8,7 +8,8 @@ export default function StatusPanel(){
   const timerRef = useRef(null)
 
   useEffect(()=>{
-    const target = (SITE.baseUrl || '/') + 'index.html'
+    const base = import.meta.env.BASE_URL || '/'
+    const target = base + 'index.html'
     async function ping(){
       const start = performance.now()
       try{
