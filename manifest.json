@@ -15,6 +15,6 @@
   "shortcuts": [
     { "name": "Open Projects", "url": "/devops-hub/pages/projects.html" },
     { "name": "Open Resume (ATS)", "url": "/devops-hub/pages/resume.html" },
-    { "name": "Open Resume Preview", "url": "/devops-hub/pages/resume-preview.html" }
+    { "name": "Open Resume Preview", "url": "/devops-hub/pages/resume/preview.html" }
   ]
 }
