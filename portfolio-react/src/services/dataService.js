@@ -4,8 +4,8 @@ import postSchema from '../data/schemas/post.schema.json'
 import projectSchema from '../data/schemas/project.schema.json'
 
 const ajv = new Ajv({ allErrors: true })
-const validatePosts = ajv.compile({ type: 'array', items: postSchema })
-const validateProjects = ajv.compile({ type: 'array', items: projectSchema })
+const validatePosts = ajv.compile(postSchema)
+const validateProjects = ajv.compile(projectSchema)
 
 const cache = { posts: null, projects: null }
 const overrides = (()=>{

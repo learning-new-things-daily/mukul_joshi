@@ -8,9 +8,8 @@ function readJson(p){
   return JSON.parse(fs.readFileSync(p, 'utf-8'))
 }
 
-function validateArray(name, itemsSchema, data){
-  const schema = { type: 'array', items: itemsSchema }
-  const validate = ajv.compile(schema)
+function validateArray(name, arraySchema, data){
+  const validate = ajv.compile(arraySchema)
   const ok = validate(data)
   if(!ok){
     const errors = validate.errors || []

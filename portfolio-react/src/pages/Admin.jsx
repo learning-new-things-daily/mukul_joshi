@@ -27,8 +27,8 @@ export default function Admin(){
   const [metaErrors, setMetaErrors] = useState([])
 
   const ajv = new Ajv({ allErrors: true, strict: false })
-  const validatePostsSchema = ajv.compile({ type: 'array', items: postSchema })
-  const validateProjectsSchema = ajv.compile({ type: 'array', items: projectSchema })
+  const validatePostsSchema = ajv.compile(postSchema)
+  const validateProjectsSchema = ajv.compile(projectSchema)
   const formatErrors = (errors) => (errors||[]).map(e => `${e.instancePath || ''} ${e.message}`.trim())
 
   useEffect(()=>{
