@@ -1,17 +1,26 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import projects from '../data/projects.json'
-import posts from '../data/posts.json'
+import { getProjects, getPosts, getMeta } from '../services/dataService.js'
 import Dashboard from '../components/Dashboard.jsx'
 import Terminal from '../components/UI/Terminal.jsx'
 import Contact from '../components/Contact.jsx'
 import DevOpsBadges from '../components/DevOpsBadges.jsx'
 
 export default function Home(){
+  const [projects, setProjects] = useState([])
+  const [posts, setPosts] = useState([])
+  const [meta, setMeta] = useState(null)
+  useEffect(()=>{ getProjects().then(setProjects).catch(()=>setProjects([])) }, [])
+  useEffect(()=>{ getPosts().then(setPosts).catch(()=>setPosts([])) }, [])
+  useEffect(()=>{ getMeta().then(setMeta).catch(()=>setMeta(null)) }, [])
   return (
     <div className="grid gap-4">
       <section className="bg-white border rounded-lg p-4">
         <h1 className="text-2xl text-brand">Hello, I'm Mukul</h1>
         <p>Cloud automation, Kubernetes, and CI/CD at scale.</p>
+        {meta && (
+          <p className="mt-1 text-xs text-slate-500">Content v{meta.version} · Updated {new Date(meta.lastUpdated).toLocaleString()}</p>
+        )}
         <p className="mt-2 flex gap-2">
           <Link className="btn" to="/resume">Download CV</Link>
           <Link className="btn" to="/projects">View Projects</Link>

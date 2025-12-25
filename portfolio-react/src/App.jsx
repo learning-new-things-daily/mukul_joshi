@@ -11,6 +11,7 @@ import IaC from './pages/IaC.jsx'
 import Runbooks from './pages/Runbooks.jsx'
 import SecurityGates from './pages/SecurityGates.jsx'
 import CostControls from './pages/CostControls.jsx'
+import Admin from './pages/Admin.jsx'
 
 export default function App(){
   return (
@@ -33,6 +34,7 @@ export default function App(){
           <Link className="btn" to="/blog">Blog</Link>
           <Link className="btn" to="/resume">Resume (ATS)</Link>
           <Link className="btn" to="/resume/preview">Resume Preview</Link>
+          <Link className="btn" to="/admin">Admin</Link>
         </nav>
       </header>
       <Routes>
@@ -47,6 +49,7 @@ export default function App(){
         <Route path="/blog/:slug" element={<PostDetail />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/resume/preview" element={<ResumePreview />} />
+        <Route path="/admin" element={<Admin />} />
         {/* Legacy static paths → SPA routes */}
         <Route path="/pages/resume.html" element={<Navigate to="/resume" replace />} />
         <Route path="/pages/resume/preview.html" element={<Navigate to="/resume/preview" replace />} />

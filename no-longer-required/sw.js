@@ -58,9 +58,15 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Stale-while-revalidate for assets and JSON data
-  if (url.pathname.includes('/assets/') || url.pathname.includes('/data/')) {
+  // Stale-while-revalidate for static assets
+  if (url.pathname.includes('/assets/')) {
     event.respondWith(staleWhileRevalidate(req));
+    return;
+  }
+
+  // Network-first for frequently updated JSON data
+  if (url.pathname.includes('/data/')) {
+    event.respondWith(networkFirst(req));
     return;
   }
 
