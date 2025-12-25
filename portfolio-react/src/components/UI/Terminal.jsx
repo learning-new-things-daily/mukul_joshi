@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const HELP = `Available commands:\nwhoami\nskills --list\nexperience --show\nopen <resume|preview|projects|blog>\nprint <resume|preview>\ntheme --set <dark|light>\ntheme --status\nabout\ncerts --list\npipeline --run\npipeline --retry\npipeline --resume\ncontact --run <email>\ndeploy sandbox --template <hello|chart|terminal|markdown|table>\ndeploy open <last|index>\ndeploy list\nhistory\nclear`;
+const HELP = `Available commands:\nwhoami\nskills --list\nexperience --show\nopen <resume|preview|projects|blog>\nprint <resume|preview>\ntheme --set <dark|light>\ntheme --status\nabout\ncerts --list\npipeline --run\npipeline --retry\npipeline --resume\ncontact --run <email>\ndeploy sandbox --template <hello|chart|terminal|markdown|table>\ndeploy open <last|index>\ndeploy list\nhistory\nclear\nreboot`;
 
 export default function Terminal(){
   const navigate = useNavigate()
@@ -15,7 +15,7 @@ export default function Terminal(){
     let out = ''
     if(t === 'help'){ out = HELP }
     else if(t === 'help --verbose'){
-      out = HELP + `\n\nExamples:\nopen resume\nprint preview\ntheme --set dark\npipeline --run`;
+      out = HELP + `\n\nExamples:\nopen resume\nprint preview\ntheme --set dark\npipeline --run\nreboot`;
     }
     else if(t === 'whoami'){ out = 'Mukul Joshi — DevOps Engineer (CI/CD, Cloud, Automation)'}
     else if(t.startsWith('skills')){ out = 'Cloud: AWS, GCP\nCI/CD: Jenkins, GitHub Actions\nIaC: Terraform, Ansible\nContainers: Docker, Kubernetes' }
@@ -96,6 +96,11 @@ export default function Terminal(){
     }
     else if(t === 'history'){
       out = history.length ? history.map((h,i)=>`${i+1}. ${h}`).join('\n') : 'No history.'
+    }
+    else if(t === 'reboot'){
+      out = 'Rebooting terminal...';
+      // Give users a moment to see the message before reload
+      setTimeout(()=>{ try { window.location.reload(); } catch(e){} }, 600)
     }
     else if(t === 'clear'){ setLines([]); return }
     else if(t === 'cls'){ setLines([]); return }
