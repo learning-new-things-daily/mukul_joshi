@@ -7,10 +7,10 @@ const ajv = new Ajv({ allErrors: true })
 const validatePosts = ajv.compile({ type: 'array', items: postSchema })
 const validateProjects = ajv.compile({ type: 'array', items: projectSchema })
 
-const cache = {
-  posts: null,
-  projects: null,
-}
+const cache = { posts: null, projects: null }
+const overrides = (()=>{
+  try{ return JSON.parse(localStorage.getItem('dataOverrides') || '{}') } catch { return {} }
+})()
 
 function buildUrl(name){
   const base = import.meta.env.BASE_URL || '/'
@@ -51,6 +51,7 @@ function maybeValidate(name, data){
 }
 
 export async function getPosts(){
+  if(overrides.posts) return overrides.posts
   if(cache.posts) return cache.posts
   let data
   const src = SITE.dataSource || 'json'
@@ -64,6 +65,7 @@ export async function getPosts(){
 }
 
 export async function getProjects(){
+  if(overrides.projects) return overrides.projects
   if(cache.projects) return cache.projects
   let data
   const src = SITE.dataSource || 'json'
@@ -79,9 +81,22 @@ export async function getProjects(){
 export function clearCache(){ cache.posts = null; cache.projects = null }
 
 export async function getMeta(){
+  if(overrides.meta) return overrides.meta
   const src = SITE.dataSource || 'json'
   if(src === 'json') return await loadJson('meta')
   if(src === 'bundled') { const mod = await import('../data/meta.json'); return mod.default }
   if(src === 'api') { const base = SITE.apiBase?.replace(/\/$/, ''); const resp = await fetch(`${base}/meta`); if(!resp.ok) throw new Error('API meta error'); return await resp.json() }
   return { version: 'unknown', lastUpdated: new Date().toISOString() }
 }
+
+export function setOverride(name, data){
+  overrides[name] = data
+  try { localStorage.setItem('dataOverrides', JSON.stringify(overrides)) } catch {}
+}
+
+export function clearOverride(name){
+  delete overrides[name]
+  try { localStorage.setItem('dataOverrides', JSON.stringify(overrides)) } catch {}
+}
+
+export function getOverride(name){ return overrides[name] }
