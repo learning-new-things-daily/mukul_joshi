@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import InfoTip from './InfoTip.jsx'
 
 const HELP = `Available commands:\nwhoami\nskills --list\nexperience --show\nopen <resume|preview|projects|blog>\nprint <resume|preview>\ntheme --set <dark|light>\ntheme --status\nabout\ncerts --list\npipeline --run\npipeline --retry\npipeline --resume\ncontact --run <email>\ndeploy sandbox --template <hello|chart|terminal|markdown|table>\ndeploy open <last|index>\ndeploy list\nhistory\nclear\nreboot`;
 
@@ -111,7 +112,7 @@ export default function Terminal(){
 
   return (
     <section className="grid gap-2">
-      <h2 className="text-xl text-brand">Terminal</h2>
+      <h2 className="text-xl text-brand flex items-center gap-2">Terminal <InfoTip text="Website terminal: run 'help', navigate pages, toggle theme, and trigger pipelines or sandbox deployments. Not a system shell." /></h2>
       <div className="bg-[#0b0f14] text-[#b8d3ff] border border-[#132235] rounded-lg p-3 font-mono">
         <div className="min-h-[120px] whitespace-pre-wrap">{lines.join('\n\n')}</div>
         <input
