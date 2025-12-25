@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import InfoTip from './InfoTip.jsx'
 
-const HELP = `Available commands:\nwhoami\nskills --list\nexperience --show\nopen <resume|preview|projects|blog>\nprint <resume|preview>\ntheme --set <dark|light>\ntheme --status\nabout\ncerts --list\npipeline --run\npipeline --retry\npipeline --resume\ncontact --run <email>\ndeploy sandbox --template <hello|chart|terminal|markdown|table>\ndeploy open <last|index>\ndeploy list\nhistory\nclear\nreboot`;
+const HELP = `Available commands:\nwhoami\nskills --list\nexperience --show\nopen <resume|preview|projects|blog>\nprint <resume|preview>\ntheme --set <dark|light>\ntheme --status\nabout\ncerts --list\npipeline --run\npipeline --retry\npipeline --resume\ncontact --run <email>\ndeploy sandbox --template <hello|chart|terminal|markdown|table|helm|pipeline|dockerfile>\ndeploy open <last|index>\ndeploy list\nalerts list\nalerts clear\nhistory\nclear\nreboot`;
 
 export default function Terminal(){
   const navigate = useNavigate()
@@ -74,11 +74,11 @@ export default function Terminal(){
     else if(t.startsWith('deploy sandbox')){
       const match = t.match(/--template\s+(\w+)/)
       const tpl = match?.[1]
-      if(['hello','chart','terminal','markdown','table'].includes(tpl)){
+      if(['hello','chart','terminal','markdown','table','helm','pipeline','dockerfile'].includes(tpl)){
         document.dispatchEvent(new CustomEvent('deploy-request', { detail: { template: tpl } }))
         out = `Requested deployment for sandbox template '${tpl}'. Watch the Pipeline Run panel.`
       } else {
-        out = "Usage: deploy sandbox --template <hello|chart|terminal|markdown|table>"
+        out = "Usage: deploy sandbox --template <hello|chart|terminal|markdown|table|helm|pipeline|dockerfile>"
       }
     }
     else if(t.startsWith('deploy open')){
@@ -97,6 +97,14 @@ export default function Terminal(){
     }
     else if(t === 'history'){
       out = history.length ? history.map((h,i)=>`${i+1}. ${h}`).join('\n') : 'No history.'
+    }
+    else if(t === 'alerts list'){
+      const alerts = Array.isArray(window.__alerts) ? window.__alerts : []
+      out = alerts.length ? alerts.map((a,i)=>`${i+1}. ${a.source} · ${a.type} — ${a.message} (${a.time.toLocaleString()})`).join('\n') : 'No alerts.'
+    }
+    else if(t === 'alerts clear'){
+      try { document.dispatchEvent(new Event('alerts-clear')) } catch {}
+      out = 'Cleared alerts.'
     }
     else if(t === 'reboot'){
       out = 'Rebooting terminal...';

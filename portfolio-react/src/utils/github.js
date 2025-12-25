@@ -12,6 +12,16 @@ export async function fetchLatestWorkflowRuns({ perPage = 5 } = {}){
   const url = `${API}/repos/${owner}/${repo}/actions/runs?per_page=${perPage}`
   const headers = { 'Accept': 'application/vnd.github+json' }
   if(token){ headers['Authorization'] = `Bearer ${token}` }
+  // Cache results in sessionStorage to avoid hitting rate limits when no token is present
+  const cacheKey = `ci-runs:${owner}/${repo}`
+  const now = Date.now()
+  try{
+    const cached = JSON.parse(sessionStorage.getItem(cacheKey) || 'null')
+    // TTL 5 minutes
+    if(cached && (now - cached.ts) < 5*60*1000){
+      return { configured: true, runs: cached.runs }
+    }
+  } catch {}
   try{
     const resp = await fetch(url, { headers })
     if(!resp.ok){
@@ -34,6 +44,7 @@ export async function fetchLatestWorkflowRuns({ perPage = 5 } = {}){
       run_number: r.run_number,
       durationSec: r.run_started_at && r.updated_at ? (new Date(r.updated_at) - new Date(r.run_started_at))/1000 : null,
     }))
+    try{ sessionStorage.setItem(cacheKey, JSON.stringify({ ts: now, runs })) } catch {}
     return { configured: true, runs }
   } catch(err){
     return { configured: true, runs: [], error: err.message }
