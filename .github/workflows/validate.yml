@@ -18,13 +18,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Install tools (link checker + ajv)
+      - name: Install tools (link checker)
         run: |
-          npm i -g broken-link-checker ajv-cli ajv-formats
+          npm i -g broken-link-checker
+      - name: Install app dependencies
+        working-directory: portfolio-react
+        run: |
+          npm ci
       - name: Validate JSON schemas
+        working-directory: portfolio-react
         run: |
-          npx ajv -c ajv-formats validate -s data/schemas/project.schema.json -d data/projects.json
-          npx ajv -c ajv-formats validate -s data/schemas/post.schema.json -d data/posts.json
+          npm run validate:data
       - name: Check links
         run: |
           blc --exclude-external --filter-level 3 --recursive . || true
