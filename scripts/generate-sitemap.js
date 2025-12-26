@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
-const base = 'https://learning-new-things-daily.github.io/devops-hub/';
+const base = 'https://learning-new-things-daily.github.io/mukul_joshi/';
 const root = process.cwd();
 function listHtml(dir){
   const entries = fs.readdirSync(dir, { withFileTypes: true });
