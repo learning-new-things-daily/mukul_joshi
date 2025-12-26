@@ -1,0 +1,14 @@
+{
+  "name": "Mukul Joshi Portfolio",
+  "short_name": "Portfolio",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f6f8fa",
+  "theme_color": "#0a3d62",
+  "icons": [
+    {"src":"/assets/icons/favicon-64.png","sizes":"64x64","type":"image/png"},
+    {"src":"/assets/icons/favicon-32.png","sizes":"32x32","type":"image/png"},
+    {"src":"/assets/icons/apple-touch-icon.png","sizes":"180x180","type":"image/png"}
+  ]
+}
