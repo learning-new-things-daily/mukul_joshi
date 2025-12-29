@@ -1,3 +1,8 @@
+.menu-card { @apply border rounded-md bg-white shadow-lg p-2; }
+.menu-item { @apply block px-3 py-2 rounded text-sm text-slate-800 hover:bg-slate-100; }
+.theme-dark .menu-card { background-color: #0f172a !important; border-color: #334155 !important; }
+.theme-dark .menu-item { color: #e5eefc !important; }
+.theme-dark .menu-item:hover { background-color: #0b1220 !important; }
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,6 +13,13 @@ body { @apply bg-slate-50 text-slate-800; }
 
 .btn { @apply inline-block min-h-[44px] px-3 py-2 rounded-md border border-slate-700 text-white bg-brand; }
 .btn:hover { @apply bg-slate-800; }
+.btn:focus { @apply outline-none ring-2 ring-brand; }
+/* Compact button variant for dense navs and toolbars */
+.btn-sm { @apply min-h-[36px] px-2 py-1 text-sm; }
+
+/* Utility to hide scrollbars on overflow containers when needed */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* Print cleanup: hide app chrome and button bars */
 @media print {
@@ -41,6 +53,8 @@ body { @apply bg-slate-50 text-slate-800; }
 	border-color: #334155 !important;
 }
 .theme-dark .site-header, .theme-dark .site-footer { color: #cbd5e1; }
+/* Sticky header dark background */
+.theme-dark .site-header { background-color: rgba(11, 18, 32, 0.85) !important; }
 
 /* SVG brand stroke in dark mode */
 .theme-dark svg polyline { stroke: var(--brand) !important; }
