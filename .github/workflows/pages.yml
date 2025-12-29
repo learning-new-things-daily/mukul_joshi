@@ -32,6 +32,10 @@ jobs:
         working-directory: portfolio-react
         run: npm ci
 
+      - name: Run unit tests
+        working-directory: portfolio-react
+        run: npm test
+
       - name: Build
         working-directory: portfolio-react
         run: npm run build
