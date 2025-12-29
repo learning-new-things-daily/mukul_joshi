@@ -6,8 +6,8 @@ import StatusPanel from './StatusPanel.jsx'
 import AlertsPanel from './AlertsPanel.jsx'
 
 function Sparkline({ values }){
-  // Simple sparkline using inline SVG
-  const w = 200, h = 40
+  // Simple sparkline using inline SVG (slightly wider for desktop)
+  const w = 280, h = 48
   const max = Math.max(1, ...values)
   const pts = values.map((v, i) => `${(i/(values.length-1))*w},${h - (v/max)*h}`).join(' ')
   return (
@@ -347,7 +347,7 @@ export default function Dashboard(){
   return (
     <section className="grid gap-4">
       <h2 className="text-xl text-brand flex items-center gap-2">Live Dashboard <InfoTip text="Synthetic live telemetry demo; CPU, Memory and Deployments update about every 1.2s." /></h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-3">
         <div className="border rounded-lg p-3 bg-white">
           <div className="font-semibold text-brand flex items-center gap-2">CPU <InfoTip text="Simulated CPU utilization (%) updating live." /></div>
           <div className="text-2xl">{cpuVal}%</div>
