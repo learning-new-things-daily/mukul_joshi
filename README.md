@@ -54,15 +54,17 @@ Local development:
 ```bash
 cd portfolio-react
 npm ci
+# Point the UI at your API (required; app reads data from API)
+echo 'VITE_API_BASE_URL=http://localhost:4000' > .env
 npm run dev
 ```
 
-Production build:
+Production build (requires API URL):
 
 ```bash
 cd portfolio-react
 npm ci
-npm run build
+VITE_API_BASE_URL=https://<your-api-host> npm run build
 ```
 
 ## Docker
@@ -84,6 +86,40 @@ cd portfolio-react
 docker compose up --build -d
 docker compose down
 ```
+
+## MongoDB migration (Atlas)
+You can migrate the current JSON content to MongoDB Atlas and serve data via an API.
+
+### What I need from you
+- Connection string: the full `mongodb+srv://...` URI for your Atlas cluster (Database Access user with password).
+- Database name: e.g., `portfolio` (we default to this in scripts).
+- Network access: either allow your local IP temporarily to run the seed, or run from a host already allowed in Atlas.
+- Optional: the public egress IP(s) of the API host (to add to Atlas IP allowlist when deploying the backend).
+
+### How to seed your data
+1. Create `portfolio-react/.env` from the provided example:
+
+  ```bash
+  cp portfolio-react/.env.example portfolio-react/.env
+  # Edit and set MONGODB_URI and MONGODB_DB
+  ```
+
+2. Install dependencies and run the seed script:
+
+  ```bash
+  npm --prefix portfolio-react install
+  MONGODB_URI="<your-uri>" MONGODB_DB="portfolio" npm --prefix portfolio-react run seed:mongo
+  ```
+
+This will upsert documents into two collections: `posts` and `projects`, and create helpful indexes.
+
+### Security best practices
+- Create a least-privilege Atlas user with `readWrite` on only your content database (e.g., `portfolio`).
+- Keep secrets out of git: `.env` is ignored; only commit `.env.example`.
+- Use environment variables in your hosting provider (Render/Railway/Vercel/Azure) to store `MONGODB_URI`.
+- Restrict network access in Atlas to the IPs of your API host; remove 0.0.0.0/0 after seeding.
+- Rotate credentials periodically; consider short-lived secrets where possible.
+- Prefer a backend API (Express/Serverless) over direct client connections to avoid exposing Mongo credentials.
 
 ## Makefile (root)
 Common DevOps tasks are available via the root `Makefile`:
