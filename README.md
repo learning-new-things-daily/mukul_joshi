@@ -181,5 +181,5 @@ The static site is data-driven via JSON.
 
 ### Renderer and offline
 - `assets/js/app.js` fetches JSON and renders content (progressive enhancement: static noscript fallbacks remain).
-- `sw.js` caches core pages, icons, JSON data, and the renderer for offline resume access.
+- `sw.js` caches core pages, icons, JSON data, and the renderer for offline resume access. 
 
