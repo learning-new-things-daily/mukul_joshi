@@ -179,6 +179,7 @@ The static site is data-driven via JSON.
   - Set `external: true` if the post is on another site (opens in new tab)
 - The homepage renders the latest 3 into `#blog-list`.
 
+
 ### Renderer and offline
 - `assets/js/app.js` fetches JSON and renders content (progressive enhancement: static noscript fallbacks remain).
 - `sw.js` caches core pages, icons, JSON data, and the renderer for offline resume access. 
