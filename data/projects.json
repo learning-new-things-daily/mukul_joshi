@@ -1,0 +1,44 @@
+[
+  {
+    "id": "Client_1",
+    "emoji": "🔧",
+    "title": "AWS Infrastructure Automation (Client_1)",
+    "summary": "Reusable Terraform modules for VPC, EC2, RDS, and IAM with Jenkins CI/CD integration.",
+    "tags": ["AWS", "Terraform", "Jenkins"],
+    "outcomes": [
+      "Standardized modules reduced manual provisioning and improved repeatability.",
+      "Plan/apply gating increased change confidence and auditability."
+    ],
+    "links": [
+      { "label": "Case study", "url": "projects.html#Client_1" }
+    ]
+  },
+  {
+    "id": "Client_2",
+    "emoji": "📊",
+    "title": "Google Cloud Monitoring (Client_2)",
+    "summary": "Configured GCP monitoring metrics, dashboards, and operational documentation.",
+    "tags": ["GCP", "Monitoring", "Dashboards"],
+    "outcomes": [
+      "Actionable SLO dashboards improved visibility for on‑call workflows.",
+      "Aligned alerts with incident response to reduce detection time."
+    ],
+    "links": [
+      { "label": "Case study", "url": "projects.html#Client_2" }
+    ]
+  },
+  {
+    "id": "Client_3-Client_4",
+    "emoji": "🛡️",
+    "title": "OpenShift CI/CD Automation (Client_3 / Client_4)",
+    "summary": "CI/CD automation, security scans, and Quay registry management for OpenShift.",
+    "tags": ["OpenShift", "CI/CD", "Security"],
+    "outcomes": [
+      "Security scans integrated as gates to enforce compliance.",
+      "Automated image promotion streamlined multi‑env releases."
+    ],
+    "links": [
+      { "label": "Case study", "url": "projects.html#Client_3-Client_4" }
+    ]
+  }
+]
